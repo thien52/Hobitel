@@ -1,103 +1,117 @@
 <template>
-  <div class="about-section container my-5">
+  <section class="about-section container my-5">
     <div class="row align-items-center">
-      <!-- Cột trái: Hình ảnh -->
       <div class="col-lg-6 mb-4 mb-lg-0">
-        <img
-          :src="props.imageUrl" 
-          :alt="props.imageAlt"
-          class="img-fluid rounded-3 shadow-sm"
-        />
+        <div class="image-wrapper">
+          <img
+            :src="mainImageUrl"
+            :alt="imageAlt"
+            class="img-fluid rounded-3 shadow-lg main-about-image"
+          />
+          <img
+            v-if="secondaryImageUrl"
+            :src="secondaryImageUrl"
+            :alt="secondaryImageAlt || 'Secondary image'"
+            class="img-fluid rounded-3 shadow-lg secondary-about-image"
+          />
+        </div>
       </div>
 
-      <!-- Cột phải: Nội dung Text -->
       <div class="col-lg-6 ps-lg-5">
-        <p class="text-uppercase fw-bold about-us-label">{{ props.subHeading }}</p>
+        <p class="text-uppercase fw-bold about-us-label">
+          {{ subHeading }}
+        </p>
         <h2 class="display-5 fw-semibold mb-3 main-heading">
-          {{ props.mainHeading }}
+          {{ mainHeading }}
         </h2>
-        <p class="text-muted mb-4">
-          {{ props.description }}
+        <p class="text-muted mb-4 lead">
+          {{ description }}
         </p>
 
-        <!-- Thông điệp khuyến mãi (v-if) -->
-        <div v-if="props.promotionalMessage" class="alert alert-info p-3 mb-4" role="alert">
+        <div
+          v-if="promotionalMessage"
+          role="alert"
+          class="alert alert-info p-3 mb-4 promotion-alert"
+        >
           <div class="d-flex align-items-center">
-            <el-icon v-if="props.promotionIcon" :size="24" class="me-2 flex-shrink-0">
-              <component :is="props.promotionIcon" />
+            <el-icon v-if="promotionIcon" :size="24" class="me-2 flex-shrink-0 promotion-icon">
+              <component :is="promotionIcon" />
             </el-icon>
-            <span>{{ props.promotionalMessage }}</span>
+            <span>{{ promotionalMessage }}</span>
           </div>
         </div>
 
-        <!-- Khối Features -->
-        <div v-if="hasFeatures" class="row mb-4">
-          <!-- Feature item 1 -->
-          <div v-if="props.feature1 && props.feature1.title" :class="featureColumnClass">
+        <div v-if="features.length > 0" class="row mb-4 g-3">
+          <div
+            v-for="(feature, index) in features"
+            :key="index"
+            :class="features.length === 1 ? 'col-md-12' : 'col-md-6'"
+            class="feature-col"
+          >
             <div class="d-flex align-items-start feature-item p-3 bg-light rounded-3 h-100">
-              <div v-if="props.feature1.icon" class="feature-icon me-3 flex-shrink-0">
-                <el-icon :size="40" color="#D9534F">
-                  <component :is="props.feature1.icon" />
+              <div v-if="feature.icon" class="feature-icon me-3 flex-shrink-0">
+                <el-icon :size="35" color="#D9534F">
+                  <component :is="feature.icon" />
                 </el-icon>
               </div>
               <div>
-                <h5 class="mb-1">{{ props.feature1.title }}</h5>
+                <h5 class="mb-1 fw-bold">{{ feature.title }}</h5>
                 <p class="small text-muted mb-0">
-                  {{ props.feature1.description }}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Feature item 2 (hiển thị có điều kiện v-if) -->
-          <div v-if="props.showSecondFeature && props.feature2 && props.feature2.title" class="col-md-6">
-            <div class="d-flex align-items-start feature-item p-3 bg-light rounded-3 h-100">
-              <div v-if="props.feature2.icon" class="feature-icon me-3 flex-shrink-0">
-                 <el-icon :size="40" color="#D9534F">
-                   <component :is="props.feature2.icon" />
-                  </el-icon>
-              </div>
-              <div>
-                <h5 class="mb-1">{{ props.feature2.title }}</h5>
-                <p class="small text-muted mb-0">
-                  {{ props.feature2.description }}
+                  {{ feature.description }}
                 </p>
               </div>
             </div>
           </div>
         </div>
 
+        <div
+          v-if="quote.text"
+          class="quote-block p-4 rounded-3 mb-4"
+        >
+          <el-icon :size="30" class="quote-icon mb-2"><ChatDotSquare /></el-icon>
+          <p class="mb-2 fst-italic">{{ quote.text }}</p>
+          <footer class="blockquote-footer mt-2">{{ quote.author }}</footer>
+        </div>
+
         <el-button
-          v-if="props.ctaButtonText"
+          v-if="ctaButtonText"
           type="danger"
           size="large"
           round
           @click="handleCtaClick"
+          class="cta-button mt-3"
         >
-          {{ props.ctaButtonText }}
+          {{ ctaButtonText }}
+          <el-icon class="el-icon--right"><Right /></el-icon>
         </el-button>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
-import { computed, defineProps } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-// Import các icon mặc định hoặc icon bạn thường dùng
-import { Money, PriceTag, Promotion as DefaultPromotionIcon, Star } from '@element-plus/icons-vue';
+import { Promotion as DefaultPromotionIcon, Star, Right, Service, CoffeeCup, ChatDotSquare, TrophyBase, OfficeBuilding } from '@element-plus/icons-vue';
 
 const router = useRouter();
 
 const props = defineProps({
-  // Content Props
-  imageUrl: {
+  mainImageUrl: {
     type: String,
     default: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  secondaryImageUrl: {
+    type: String,
+    default: ''
   },
   imageAlt: {
     type: String,
     default: 'Hotel View - About Our Hotel'
+  },
+  secondaryImageAlt: {
+    type: String,
+    default: 'Hotel detail view'
   },
   subHeading: {
     type: String,
@@ -105,113 +119,260 @@ const props = defineProps({
   },
   mainHeading: {
     type: String,
-    default: 'Our Hotel is The Best Place to Celebrate Life'
+    default: 'Hobitel - Where Your Holiday Becomes Wonderful'
   },
   description: {
     type: String,
-    default: 'Discover the essence of hospitality at our hotel, where every stay is crafted to be an unforgettable experience. We pride ourselves on exceptional service, luxurious amenities, and a commitment to making your moments memorable.'
+    default: 'At Hobitel, we don\'t just provide accommodation; we deliver experiences. From luxurious spaces to attentive service, every moment of your stay is meticulously cared for, ensuring a memorable and inspiring holiday.'
   },
-  // Promotional Message
   promotionalMessage: {
     type: String,
-    default: ''
+    default: 'Guaranteed best price when booking directly through our website!'
   },
   promotionIcon: {
-    type: [Object, String], // Có thể là component icon hoặc tên string của icon toàn cục
+    type: [Object, String],
     default: DefaultPromotionIcon
   },
-  // Features
-  showSecondFeature: {
-    type: Boolean,
-    default: true
+  features: {
+    type: Array,
+    default: () => [
+      {
+        icon: Service,
+        title: 'World-Class Service',
+        description: 'Our dedicated team is ready to serve you 24/7, providing a superior experience.'
+      },
+      {
+        icon: CoffeeCup,
+        title: 'Exquisite Cuisine',
+        description: 'Discover a unique culinary journey at our restaurants and bars.'
+      }
+    ]
   },
-  feature1: {
+  quote: {
     type: Object,
     default: () => ({
-      icon: Money,
-      title: 'Best Rate Guarantee',
-      description: 'We ensure you get the most competitive prices for your stay.'
+      text: '',
+      author: ''
     })
   },
-  feature2: {
-    type: Object,
-    default: () => ({
-      icon: PriceTag,
-      title: 'Exceptional Service',
-      description: 'Our dedicated team is here to cater to your every need, 24/7.'
-    })
-  },
-  // CTA Button
   ctaButtonText: {
     type: String,
-    default: 'LEARN MORE ABOUT US'
+    default: 'Learn More About Us'
   },
-  ctaButtonLink: { // Link nội bộ hoặc URL bên ngoài
+  ctaButtonLink: {
     type: String,
     default: '/about'
   },
-  onCtaClick: { // Cho phép truyền vào một hàm callback tùy chỉnh cho nút CTA
+  onCtaClick: {
     type: Function,
     default: null
   }
 });
 
-// Computed property để xác định class cho cột feature
-const featureColumnClass = computed(() => {
-  const hasFeature1 = props.feature1 && props.feature1.title;
-  const hasFeature2 = props.showSecondFeature && props.feature2 && props.feature2.title;
-
-  if (hasFeature1 && hasFeature2) {
-    return 'col-md-6 mb-3 mb-md-0'; // Cả hai feature, chia đôi
-  }
-  if (hasFeature1 && !hasFeature2) {
-    return 'col-md-12 mb-3'; // Chỉ feature 1, chiếm toàn bộ
-  }
-  return ''; // Trường hợp không có feature nào (mặc dù đã có v-if bao ngoài)
-});
-
-// Computed property để kiểm tra xem có feature nào để hiển thị không
-const hasFeatures = computed(() => {
-  const hasFeature1 = props.feature1 && props.feature1.title;
-  const hasFeature2 = props.showSecondFeature && props.feature2 && props.feature2.title;
-  return hasFeature1 || hasFeature2;
-});
-
-// Xử lý click cho nút CTA
 const handleCtaClick = () => {
   if (props.onCtaClick) {
     props.onCtaClick();
   } else if (props.ctaButtonLink) {
     if (props.ctaButtonLink.startsWith('http')) {
-      window.open(props.ctaButtonLink, '_blank'); // Mở link ngoài trong tab mới
+      window.open(props.ctaButtonLink, '_blank');
     } else {
-      router.push(props.ctaButtonLink); // Điều hướng nội bộ
+      router.push(props.ctaButtonLink);
     }
   }
 };
 </script>
 
 <style scoped>
+.about-section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #f8f9fa;
+  overflow: hidden; /* Kept overflow:hidden for general layout safety */
+  position: relative;
+}
+
+/* --- Image Styling (for multiple images) --- */
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%;
+}
+
+.main-about-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.secondary-about-image {
+  position: absolute;
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 4px solid #fff;
+  z-index: 3;
+
+  bottom: -30px;
+  right: -30px;
+}
+
+/* --- Other existing styles (no changes for this issue) --- */
 .about-us-label {
   color: #d9534f;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem !important;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.75rem !important;
 }
 
 .main-heading {
-  font-family: 'Georgia', serif;
-  color: #2c3e50;
+  font-family: 'Playfair Display', serif;
+  color: #1A3760;
+  line-height: 1.2;
+}
+
+.lead {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #555;
+    font-family: 'Roboto', sans-serif;
 }
 
 .alert-info {
-    background-color: #e9f5ff;
-    border-color: #d0eaff;
-    color: #00529b;
+  background-color: #e6f7ff;
+  border-color: #91d5ff;
+  color: #0050b3;
+  font-size: 0.95rem;
+  border-left: 5px solid #1890ff;
 }
-/* Thêm style nếu cần cho hình ảnh hoặc các phần khác */
-.img-fluid {
-  max-height: 500px; /* Giới hạn chiều cao tối đa của ảnh nếu cần */
-  object-fit: cover; /* Đảm bảo ảnh vừa vặn và cắt nếu cần */
+
+.promotion-icon {
+    color: #1890ff;
+}
+
+.feature-item {
+  background-color: #ffffff !important;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Kept hover effect for features */
+}
+
+.feature-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+}
+
+.feature-item h5 {
+  color: #1A3760;
+  font-size: 1.1rem;
+}
+
+.feature-item p {
+  font-size: 0.88rem;
+}
+
+.quote-block {
+  background-color: #f0f4f7;
+  border-left: 5px solid #d9534f;
+  color: #34495e;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+.quote-icon {
+    color: #d9534f;
+}
+.blockquote-footer {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.cta-button {
+    font-weight: 600;
+    padding: 0.8rem 2.2rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease; /* Kept hover effect for button */
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(217, 83, 79, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+  .main-about-image {
+    max-height: 400px;
+  }
+  .secondary-about-image {
+    width: 40%;
+    bottom: -20px;
+    right: -20px;
+  }
+  .main-heading {
+    font-size: 2.5rem;
+  }
+  .lead {
+    font-size: 1rem;
+  }
+  .feature-col {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .about-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .image-wrapper {
+      padding-bottom: 100%;
+  }
+  .main-about-image {
+    max-height: 300px;
+  }
+  .secondary-about-image {
+    width: 35%;
+    bottom: -15px;
+    right: -15px;
+  }
+  .main-heading {
+    font-size: 2rem;
+  }
+  .feature-item {
+    padding: 1.2rem;
+  }
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+  }
+  .el-icon {
+    font-size: 30px !important;
+  }
+  .cta-button {
+    padding: 0.7rem 2rem;
+    font-size: 1rem;
+  }
+  .quote-block {
+      padding: 1rem;
+      font-size: 0.95rem;
+  }
 }
 </style>

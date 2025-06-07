@@ -3,12 +3,12 @@
     <div class="container">
       <el-row :gutter="20">
         
-        <!-- Cột 1: Logo và mô tả -->
+        <!-- Column 1: Logo and description -->
         <el-col :xs="24" :md="8">
           <h5 class="d-flex align-items-center">
             <img
               src="https://images.unsplash.com/photo-1588532242026-01df5951f6f5"
-              alt="Logo Hobitel"
+              alt="Hobitel Logo"
               width="30"
               height="30"
               class="me-2"
@@ -16,11 +16,11 @@
             Hobitel
           </h5>
           <p>
-            Chào mừng bạn đến với Hobitel – nơi mang đến kỳ nghỉ hoàn hảo với dịch vụ đẳng cấp và không gian sang trọng.
+            Welcome to Hobitel – where we provide the perfect vacation with world-class service and luxurious spaces.
           </p>
         </el-col>
 
-        <!-- Cột 2: Liên kết -->
+        <!-- Column 2: Links -->
         <el-col :xs="24" :md="8">
           <h5 class="mb-3">Links</h5>
           <ul class="list-unstyled">
@@ -30,12 +30,12 @@
           </ul>
         </el-col>
 
-        <!-- Cột 3: Liên hệ -->
+        <!-- Column 3: Contact -->
         <el-col :xs="24" :md="8">
           <h5 class="mb-3">Contact</h5>
-          <p><i class="bi bi-geo-alt-fill"></i> 123 Đường Biển, TP. Đà Nẵng</p>
-          <p><i class="bi bi-telephone-fill"></i> 0123 456 789</p>
-          <p><i class="bi bi-envelope-fill"></i> contact@hobitel.vn</p>
+          <p><i class="bi bi-geo-alt-fill"></i> 123 Beach Road, Da Nang City</p>
+          <p><i class="bi bi-telephone-fill"></i> +84 123 456 789</p>
+          <p><i class="bi bi-envelope-fill"></i> contact@hobitel.com</p>
         </el-col>
 
       </el-row>
@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-// Không cần gì nếu bạn đã cài Element Plus
+// No script is needed if you have Element Plus installed.
 </script>
 
 <style scoped>

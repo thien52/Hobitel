@@ -3,8 +3,7 @@
     <Header />
     <Banner />
     <main class="main-content">
-    <router-view />
-    </main>
+      <router-view /> </main>
     <Footer />
   </div>
 </template>

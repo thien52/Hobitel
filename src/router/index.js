@@ -8,7 +8,8 @@ import Gallery from '../pages/Gallery.vue'
 import Restaurant from '../pages/Restaurant.vue'
 import Blog from '../pages/Blog.vue'
 import Contact from '../pages/Contact.vue'
-
+import Promotions from '../pages/Promotions.vue'; // Trang ưu đãi
+import PromotionDetail from '../pages/PromotionDetail.vue'; // Trang chi tiết ưu đãi
 
 
 const routes = [
@@ -23,7 +24,8 @@ const routes = [
   { path: '/restaurant', name: 'Restaurant', component: Restaurant },
   { path: '/contact', name: 'Contact', component: Contact },
   { path: '/blog', name: 'Blog', component: Blog },
-
+  { path: '/promotions', name: 'Promotions', component: Promotions },
+  { path: '/promotions/:id', name: 'PromotionDetail', component: PromotionDetail },
 ]
 
 const router = createRouter({
