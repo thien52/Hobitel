@@ -70,35 +70,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import { useRouter } from 'vue-router'; // 1. Import useRouter
-
-const rooms = ref([
-  {
-    id: 1,
-    imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: '$120.00',
-    name: 'Luxury Suite Room',
-    rating: 5,
-    description: 'Spacious suite with a king-size bed, separate living area, and panoramic city views. Includes premium amenities.',
-  },
-  {
-    id: 2,
-    imageUrl: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: '$150.00',
-    name: 'Deluxe King Room',
-    rating: 4,
-    description: 'Comfortable deluxe room with a plush king-size bed, modern decor, and a work desk. Ideal for business or leisure.',
-  },
-  {
-    id: 3,
-    imageUrl: 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: '$99.00',
-    name: 'Standard Double Room',
-    rating: 5,
-    description: 'A cozy room featuring two comfortable double beds, perfect for families or friends travelling together.',
-  },
-]);
+import axios from "@/axios";
+const rooms = ref([]);
 
 const rateColors = ['#FFC107', '#FFC107', '#FFC107'];
 
@@ -120,9 +95,18 @@ const bookRoom = (roomId) => {
   console.log('Book room:', roomId);
 };
 
-rooms.value.forEach(room => {
-  if (!room.description) {
-    room.description = 'Elegant room with modern amenities and a stunning view, perfect for a relaxing stay.';
+onMounted(async () => {
+  try {
+    const res = await axios.get('http://localhost:3000/rooms?featured=true&_limit=3');
+    rooms.value = res.data;
+
+    rooms.value.forEach(room => {
+      if (!room.description) {
+        room.description = 'Elegant room with modern amenities and a stunning view, perfect for a relaxing stay.';
+      }
+    });
+  } catch (error) {
+    console.error('Failed to fetch featured rooms:', error);
   }
 });
 </script>

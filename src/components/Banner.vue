@@ -29,11 +29,6 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'; // For navigation when the CTA is clicked
 
-// Import Animate.css to add animations to the text
-// You need to install Animate.css: npm install animate.css --save
-// And import it in main.js/main.ts or here (if only used for this component)
-// import 'animate.css'; // If you want to import it specifically for this component
-
 const router = useRouter();
 
 // Data for the banner slides
@@ -59,7 +54,7 @@ const bannerItems = ref([
     src: 'https://hibtel.webhotel.vn/assets/image/banner-3.jpg',
     alt: 'Restaurant with diverse cuisine',
     title: 'Experience World-Class Dining',
-    description: 'Enjoy the essence of Asian-European cuisine in a luxurious setting.',
+    description: 'Enjoy the essence of Asian-European cuisine in a luxurious.',
     ctaText: 'Book a Table Now',
     ctaLink: '/restaurant' // Assuming there is a /restaurant page
   },

@@ -1,0 +1,428 @@
+{
+  "rooms": [
+    {
+      "id": 1,
+      "imageUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=870&auto=format&fit=crop",
+      "price": "$120.00",
+      "name": "Luxury Suite Room",
+      "rating": 5,
+      "description": "Spacious suite with a king-size bed, separate living area, and panoramic city views. Includes premium amenities.",
+      "type": "suite"
+    },
+    {
+      "id": 2,
+      "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=774&auto=format&fit=crop",
+      "price": "$150.00",
+      "name": "Deluxe King Room",
+      "rating": 4,
+      "description": "Comfortable deluxe room with a plush king-size bed, modern decor, and a work desk. Ideal for business or leisure.",
+      "type": "deluxe"
+    },
+    {
+      "id": 3,
+      "imageUrl": "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=870&auto=format&fit=crop",
+      "price": "$99.00",
+      "name": "Standard Double Room",
+      "rating": 5,
+      "description": "A cozy room featuring two comfortable double beds, perfect for families or friends travelling together.",
+      "type": "standard"
+    },
+    {
+      "id": 4,
+      "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=870&auto=format&fit=crop",
+      "price": "$180.00",
+      "name": "Ocean View Suite",
+      "rating": 5,
+      "description": "Breathtaking ocean views from your private balcony. This suite offers unparalleled luxury and relaxation.",
+      "type": "suite"
+    },
+    {
+      "id": 5,
+      "imageUrl": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=870&auto=format&fit=crop",
+      "price": "$110.00",
+      "name": "Cozy Single Room",
+      "rating": 4,
+      "description": "Perfect for solo travelers, this room offers a comfortable single bed and all essential amenities.",
+      "type": "standard"
+    },
+    {
+      "id": 6,
+      "imageUrl": "https://hibtel.webhotel.vn/assets/image/rooms-1.jpg",
+      "price": "$220.00",
+      "name": "Presidential Suite",
+      "rating": 5,
+      "description": "The pinnacle of luxury, featuring multiple rooms, a dining area, and personalized butler service.",
+      "type": "suite"
+    },
+    {
+      "id": 7,
+      "imageUrl": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=870&auto=format&fit=crop",
+      "price": "$130.00",
+      "name": "Family Room",
+      "rating": 4,
+      "description": "Spacious room with connecting doors, ideal for families with children. Includes fun amenities for kids.",
+      "type": "family"
+    },
+    {
+      "id": 8,
+      "imageUrl": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=870&auto=format&fit=crop",
+      "price": "$165.00",
+      "name": "Executive Deluxe Room",
+      "rating": 5,
+      "description": "Enhanced deluxe room with access to the executive lounge and upgraded amenities for a productive stay.",
+      "type": "deluxe"
+    }
+  ],
+
+  "posts": [
+    {
+      "id": 1,
+      "slug": "exploring-modern-architecture",
+      "title": "Exploring the Wonders of Modern Architecture in City X",
+      "imageUrl": "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=874&q=80",
+      "date": "October 26, 2023",
+      "category": "Architecture",
+      "excerpt": "Discover the breathtaking modern architectural marvels that City X has to offer. A journey through design and innovation that redefines urban landscapes.",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+      "id": 2,
+      "slug": "gourmet-dining-experience",
+      "title": "A Culinary Journey: The Best Gourmet Dining Spots",
+      "imageUrl": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+      "date": "October 22, 2023",
+      "category": "Food & Dining",
+      "excerpt": "Embark on a delightful culinary adventure as we explore the finest gourmet restaurants renowned for their exquisite dishes and ambiance. A must-read for food lovers!",
+      "content": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
+    },
+    {
+      "id": 3,
+      "slug": "wellness-retreats-for-relaxation",
+      "title": "Top Wellness Retreats for Ultimate Relaxation",
+      "imageUrl": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+      "date": "October 18, 2023",
+      "category": "Wellness",
+      "excerpt": "Unwind and recharge at these top-rated wellness retreats, offering a perfect escape for peace of mind, body, and soul. Discover tranquility in nature and luxurious spas.",
+      "content": "Fusce eu ligula in libero mollis fermentum. Etiam dictum egestas elit. Nunc ut neque. Duis semper. Duis arcu massa, scelerisque sit amet, dictum at, dapibus et, eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "id": 4,
+      "slug": "local-culture-and-festivals",
+      "title": "Immersing in Local Culture: A Guide to Festivals",
+      "imageUrl": "https://i.pinimg.com/736x/38/88/b4/3888b4278a0c94d56e88e6326dcb779e.jpg",
+      "date": "October 15, 2023",
+      "category": "Culture",
+      "excerpt": "Experience the heart and soul of different cultures by participating in their most colorful and vibrant local festivals and traditions. A truly unforgettable experience.",
+      "content": "Nulla lectus est, varius in, dictum a, dapibus quis, lectus. Sed sollicitudin eleifend ipsum. In non odio. Donec eu massa quis mauris sollicitudin lacinia. Aliquam in nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "id": 5,
+      "slug": "future-of-hospitality",
+      "title": "The Future of Hospitality: Trends to Watch in 2024",
+      "imageUrl": "https://i.pinimg.com/736x/bc/bb/5f/bcbb5f3d56fa1479643f94f15c4bea21.jpg",
+      "date": "October 10, 2023",
+      "category": "Hospitality",
+      "excerpt": "Explore the exciting trends shaping the hospitality industry, from AI-powered services to sustainable tourism practices. Get ready for a new era of guest experiences.",
+      "content": "Vivamus hendrerit arcu sed erat. Pellentesque quis purus sit amet sem elementum ornare. Sed fringilla ligula eu sapien. Nulla facilisi. Proin interdum felis eu sapien. Duis at ante. Curabitur vitae lorem. In et nulla at lorem bibendum scelerisque."
+    },
+    {
+      "id": 6,
+      "slug": "eco-friendly-travel-tips",
+      "title": "Sustainable Travel: Your Guide to Eco-Friendly Adventures",
+      "imageUrl": "https://i.pinimg.com/736x/78/82/cd/7882cd699158ab774f0544605b3112c3.jpg",
+      "date": "October 05, 2023",
+      "category": "Travel",
+      "excerpt": "Learn how to reduce your environmental footprint while exploring the world. Practical tips for responsible tourism and mindful journeys.",
+      "content": "Cras nec urna eu purus porttitor ullamcorper. Suspendisse eu libero. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris euismod. Proin semper sagittis ante."
+    }
+  ],
+
+  "services": [
+    {
+      "id": 1,
+      "imageSrc": "https://hibtel.webhotel.vn/assets/image/facilities-1.jpg",
+      "title": "Exquisite Dining Experience",
+      "description": "Savor gourmet dishes prepared by our award-winning chefs. Our restaurant offers a unique blend of local flavors and international cuisine in an elegant setting. Perfect for a romantic dinner or a special celebration.",
+      "price": 75.0
+    },
+    {
+      "id": 2,
+      "imageSrc": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3BhJTIwdHJlYXRtZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+      "title": "Relaxing Spa & Wellness Treatments",
+      "description": "Unwind and rejuvenate with our wide range of spa treatments. From soothing massages to invigorating facials, our expert therapists will ensure a blissful experience for your mind and body.",
+      "price": 120.0
+    },
+    {
+      "id": 3,
+      "imageSrc": "https://i.pinimg.com/736x/57/32/1b/57321b3fca7242ba52da622d3b079b35.jpg",
+      "title": "Modern Conference Facilities",
+      "description": "Host your next event in our fully equipped conference rooms. With state-of-the-art audiovisual technology and flexible layouts, we provide the perfect environment for successful meetings, seminars, and workshops.",
+      "price": 200.0
+    },
+    {
+      "id": 4,
+      "imageSrc": "https://i.pinimg.com/736x/20/42/d5/2042d5e371ed18dd1a7de511b5dbdd81.jpg",
+      "title": "State-of-the-Art Fitness Center",
+      "description": "Maintain your fitness routine with our modern fitness center. Equipped with a variety of cardio machines, weightlifting equipment, and dedicated spaces for yoga and stretching.",
+      "price": 30.0
+    },
+    {
+      "id": 5,
+      "imageSrc": "https://i.pinimg.com/736x/67/4c/8c/674c8c699db95d18e0a19fdd3fff8709.jpg",
+      "title": "Refreshing Swimming Pool Access",
+      "description": "Dive into relaxation at our expansive swimming pool. Whether for a leisurely swim or fun with family, our pool area offers a refreshing escape with comfortable seating and poolside service.",
+      "price": 25.0
+    }
+  ],
+
+  "gallery": [
+    {
+      "id": 1,
+      "src": "https://images.unsplash.com/photo-1505826759037-406b40feb4cd?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Luxury hotel poolside view",
+      "caption": "Poolside Serenity",
+      "category": "Outdoor"
+    },
+    {
+      "id": 2,
+      "src": "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Modern hotel lobby",
+      "caption": "Elegant Lobby",
+      "category": "Indoor"
+    },
+    {
+      "id": 3,
+      "src": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Breakfast by the pool",
+      "caption": "Morning Bliss",
+      "category": "Dining"
+    },
+    {
+      "id": 4,
+      "src": "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Comfortable hotel room bed",
+      "caption": "Comfortable Stay",
+      "category": "Rooms"
+    },
+    {
+      "id": 5,
+      "src": "https://images.unsplash.com/photo-1561501900-3701fa6a0864?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Hotel exterior with palm trees",
+      "caption": "Tropical Paradise",
+      "category": "Outdoor"
+    },
+    {
+      "id": 6,
+      "src": "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Hotel restaurant dining area",
+      "caption": "Fine Dining",
+      "category": "Dining"
+    },
+    {
+      "id": 7,
+      "src": "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Resort view with multiple pools",
+      "caption": "Resort Getaway",
+      "category": "Outdoor"
+    },
+    {
+      "id": 8,
+      "src": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Spacious hotel suite",
+      "caption": "Luxury Suite",
+      "category": "Rooms"
+    },
+    {
+      "id": 9,
+      "src": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Hotel spa and wellness area",
+      "caption": "Relax and Rejuvenate",
+      "category": "Wellness"
+    },
+    {
+      "id": 10,
+      "src": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Hotel Gym",
+      "caption": "Fitness Center",
+      "category": "Wellness"
+    },
+    {
+      "id": 11,
+      "src": "https://i.pinimg.com/736x/ee/3f/42/ee3f42ae97d810aa1e73c78d2c95cba1.jpg",
+      "alt": "Hotel Bar",
+      "caption": "Evening Drinks",
+      "category": "Dining"
+    },
+    {
+      "id": 12,
+      "src": "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=1920&auto=format&fit=crop",
+      "alt": "Room with a View",
+      "caption": "Breathtaking Views",
+      "category": "Rooms"
+    }
+  ],
+
+  "menuCategories": [
+    {
+      "label": "Appetizers",
+      "name": "appetizers",
+      "items": [
+        {
+          "id": "a1",
+          "name": "Bruschetta Classica",
+          "description": "Grilled bread rubbed with garlic and topped with fresh tomatoes, basil, and olive oil.",
+          "price": "$12",
+          "image": "https://i.pinimg.com/736x/07/10/55/071055249e27852a2e9341ed25fe239d.jpg"
+        },
+        {
+          "id": "a2",
+          "name": "Crispy Calamari",
+          "description": "Lightly battered and fried calamari served with a tangy marinara sauce.",
+          "price": "$15",
+          "image": "https://i.pinimg.com/736x/d5/8c/96/d58c96a6d68d9a6b36e3f628905f8a82.jpg"
+        }
+      ]
+    },
+    {
+      "label": "Main Courses",
+      "name": "maincourses",
+      "items": [
+        {
+          "id": "m1",
+          "name": "Filet Mignon",
+          "description": "8oz center-cut filet, cooked to perfection, served with potato gratin and seasonal vegetables.",
+          "price": "$38",
+          "image": "https://i.pinimg.com/736x/ce/c9/7a/cec97a19548107bf75fc46c0713e2f95.jpg"
+        },
+        {
+          "id": "m2",
+          "name": "Seafood Risotto",
+          "description": "Creamy Arborio rice with a medley of fresh seafood, white wine, and Parmesan.",
+          "price": "$28",
+          "image": "https://i.pinimg.com/736x/e5/09/10/e5091042ec2f99e253f25858f6dad426.jpg"
+        },
+        {
+          "id": "m3",
+          "name": "Vegan Lentil Shepherd's Pie",
+          "description": "Hearty lentils and vegetables topped with a creamy sweet potato mash.",
+          "price": "$22",
+          "image": "https://i.pinimg.com/736x/54/a9/c5/54a9c52afb130fd0d06df53dd20539e0.jpg"
+        }
+      ]
+    },
+    {
+      "label": "Desserts",
+      "name": "desserts",
+      "items": [
+        {
+          "id": "d1",
+          "name": "Tiramisu",
+          "description": "Classic Italian dessert with ladyfingers, espresso, mascarpone cream, and cocoa.",
+          "price": "$10",
+          "image": "https://i.pinimg.com/736x/cd/96/85/cd9685de7adb0a8a5b518c26c796a13d.jpg"
+        },
+        {
+          "id": "d2",
+          "name": "New York Cheesecake",
+          "description": "Rich and creamy cheesecake with a graham cracker crust, served with berry compote.",
+          "price": "$11",
+          "image": "https://i.pinimg.com/736x/14/82/cf/1482cf13ba8f55eb67ef73f973c3d089.jpg"
+        }
+      ]
+    }
+  ],
+
+  "testimonials": [
+    {
+      "id": 1,
+      "quote": "Absolutely fantastic food and impeccable service. A truly memorable evening!",
+      "author": "Sarah L."
+    },
+    {
+      "id": 2,
+      "quote": "The ambiance is perfect for a romantic dinner. We loved every dish we tried.",
+      "author": "John & Emily B."
+    },
+    {
+      "id": 3,
+      "quote": "Best [Your Specialty Dish] in town! I keep coming back for more.",
+      "author": "Michael P."
+    }
+  ],
+
+
+  "promotionDetail": [
+  {
+    "id": "summer-deal",
+    "image": "https://i.pinimg.com/736x/bf/8a/2e/bf8a2efd2e72a2a39e844648e22e91b3.jpg",
+    "title": "Vibrant Summer Getaway Package",
+    "description": "Enjoy a 20% discount on all rooms for stays of 3 nights or more, including free breakfast and a spa voucher.",
+    "full_description": "Enjoy a vibrant summer vacation at our hotel with this special offer package. The package includes: 3 nights in a Deluxe room with a city or sea view, daily buffet breakfast at the restaurant, one 500,000 VND voucher for spa services at The Serene Spa, and free access to the infinity pool.\n\nApplicable for bookings and stays from June 1, 2025, to August 31, 2025. Cannot be combined with other promotions. A 7-day advance booking is required. Contact reception for more details on other terms and conditions.",
+    "startDate": "06/01/2025",
+    "endDate": "08/31/2025",
+    "terms": "Non-refundable, non-changeable."
+  },
+  {
+    "id": "spa-dining",
+    "image": "https://i.pinimg.com/736x/c7/3d/f1/c73df1607525aff076e74fd999174bde.jpg",
+    "title": "Ultimate Spa & Dining Experience",
+    "description": "Relax with a premium spa treatment and enjoy a romantic dinner at our restaurant.",
+    "full_description": "The Spa & Dining package is the perfect combination for a romantic evening. The package includes: one 60-minute full-body massage at The Serene Spa, and a premium set menu dinner for two at our rooftop restaurant with panoramic views of the sea and city.\n\nApplicable for couples and requires at least 24 hours advance booking. Valid for use until December 31, 2025. Please contact us to schedule your spa appointment and reserve a table in advance.",
+    "startDate": "01/01/2025",
+    "endDate": "12/31/2025",
+    "terms": "Advance booking required, not applicable on major holidays."
+  },
+  {
+    "id": "family-vacation",
+    "image": "https://i.pinimg.com/736x/55/09/76/5509762d97ab3128443e748606e53026.jpg",
+    "title": "Complete Family Happiness Vacation",
+    "description": "Free stay for children under 12, including tickets to the hotel's private play area.",
+    "full_description": "Your family vacation will be even more memorable with this offer. The package includes: Free stay for 2 children under 12 when sharing a room with parents in a Suite or Executive Suite, free entry to the Kid's Club throughout the stay, and a complimentary family pizza lunch at the Pool Bar.\n\nApplicable for bookings from now until September 30, 2025. Please present the children's identification upon check-in.",
+    "startDate": "05/01/2025",
+    "endDate": "09/30/2025",
+    "terms": "Applicable for children under 12, maximum 2 children per room."
+  },
+  {
+    "id": "early-bird",
+    "image": "https://i.pinimg.com/736x/72/31/87/7231873bca08272a68cfb7420792051d.jpg",
+    "title": "Early Bird Offer - Maximum Savings",
+    "description": "Book 30 days in advance to receive up to 15% off on all room types.",
+    "full_description": "Plan your trip early to get the best deals. Get a 15% discount for bookings made 30 days before the check-in date, and a 10% discount for bookings made 15 days in advance. Applicable to all room types and not limited by length of stay.\n\nThis promotion cannot be combined with other offers. Free cancellation is available up to 7 days before the check-in date.",
+    "startDate": "Ongoing",
+    "endDate": "Ongoing",
+    "terms": "Must book by the specified number of days in advance to receive the offer."
+  }
+],
+
+"promotion" : [
+  {
+    "id": "summer-deal",
+    "image": "https://i.pinimg.com/736x/bf/8a/2e/bf8a2efd2e72a2a39e844648e22e91b3.jpg",
+    "title": "Vibrant Summer Getaway Package",
+    "description": "Enjoy a 20% discount on all rooms for stays of 3 nights or more, including free breakfast and a spa voucher.",
+    "full_description": "Summer package details: The package includes a 3-night stay in a Deluxe room, daily buffet breakfast, one 500,000 VND voucher for spa services, and free access to the infinity pool. Applicable for bookings from June 1, 2025, to August 31, 2025. Cannot be combined with other promotions."
+  },
+  {
+    "id": "spa-dining",
+    "image": "https://i.pinimg.com/736x/c7/3d/f1/c73df1607525aff076e74fd999174bde.jpg",
+    "title": "Ultimate Spa & Dining Experience",
+    "description": "Relax with a premium spa treatment and enjoy a romantic dinner at our restaurant.",
+    "full_description": "Spa & Dining package details: The package includes one 60-minute full-body massage, a romantic set menu dinner for two at the rooftop restaurant with sea views. Applicable for couples and requires 24-hour advance booking. Valid until December 31, 2025."
+  },
+  {
+    "id": "family-vacation",
+    "image": "https://i.pinimg.com/736x/55/09/76/5509762d97ab3128443e748606e53026.jpg",
+    "title": "Complete Family Happiness Vacation",
+    "description": "Free stay for children under 12, including tickets to the hotel's private play area.",
+    "full_description": "Family package details: Free stay for 2 children under 12 when sharing a room with parents, free entry to the Kid's Club, and a complimentary family pizza lunch. Applicable for Suite bookings and above. Valid until September 30, 2025."
+  },
+  {
+    "id": "early-bird",
+    "image": "https://i.pinimg.com/736x/72/31/87/7231873bca08272a68cfb7420792051d.jpg",
+    "title": "Early Bird Offer - Maximum Savings",
+    "description": "Book 30 days in advance to receive up to 15% off on all room types.",
+    "full_description": "Early bird offer details: 15% discount for bookings made 30 days in advance, 10% for bookings 15 days in advance. Applicable to all room types and not limited by length of stay. Cannot be combined with other promotions. Free cancellation up to 7 days before check-in."
+  }
+]
+
+}

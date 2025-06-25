@@ -1,24 +1,53 @@
 <template>
-  <section id="promotions-highlight" class="promotions-section container-fluid mb-5 py-5">
+  <section
+    id="promotions-highlight"
+    class="promotions-section container-fluid mb-5 py-5"
+  >
     <div class="container">
-      <h2 class="text-center mb-4 section-title animate__animated animate__fadeInDown">Special Offers & Promotions</h2>
-      <p class="text-center mb-5 section-subtitle animate__animated animate__fadeInDown animate__delay-0.5s">
-        Don't miss the chance to enjoy a wonderful vacation with exclusive offers from our hotel!
+      <h2
+        class="text-center mb-4 section-title animate__animated animate__fadeInDown"
+      >
+        Special Offers & Promotions
+      </h2>
+      <p
+        class="text-center mb-5 section-subtitle animate__animated animate__fadeInDown animate__delay-0.5s"
+      >
+        Don't miss the chance to enjoy a wonderful vacation with exclusive
+        offers from our hotel!
       </p>
-
+      <div v-if="isLoading">
+        <el-skeleton animated :rows="3" />
+      </div>
       <div class="row g-4 justify-content-center">
-        <div class="col-12 col-md-6 col-lg-4" v-for="(promo, index) in limitedPromotions" :key="promo.id">
-          <el-card shadow="hover" class="promotion-card animate__animated animate__fadeInUp" :style="`animation-delay: ${0.7 + index * 0.2}s;`">
+        <div
+          class="col-12 col-md-6 col-lg-4"
+          v-for="(promo, index) in promotions"
+          :key="promo.id"
+        >
+          <el-card
+            shadow="hover"
+            class="promotion-card animate__animated animate__fadeInUp"
+            :style="`animation-delay: ${0.7 + index * 0.2}s;`"
+          >
             <template #header>
               <div class="card-header-image">
-                <img :src="promo.image" :alt="promo.title" class="card-img-top">
+                <img
+                  :src="promo.image"
+                  :alt="promo.title"
+                  class="card-img-top"
+                />
               </div>
             </template>
             <div class="card-body">
               <h5 class="card-title">{{ promo.title }}</h5>
               <p class="card-text">{{ promo.description }}</p>
               <div class="card-footer-actions">
-                <el-button type="primary" plain class="w-100" @click="navigateToDetail(promo.id)">
+                <el-button
+                  type="primary"
+                  plain
+                  class="w-100"
+                  @click="navigateToDetail(promo.id)"
+                >
                   View Details
                 </el-button>
               </div>
@@ -27,57 +56,29 @@
         </div>
       </div>
 
-      <div class="text-center mt-5 animate__animated animate__fadeInUp animate__delay-1.5s">
+      <div
+        class="text-center mt-5 animate__animated animate__fadeInUp animate__delay-1.5s"
+      >
         <el-button type="primary" size="large" @click="navigateToList()">
           View All Offers
         </el-button>
+      </div>
+      <div v-if="!isLoading && promotions.length === 0" class="text-center">
+        <el-empty description="No promotions available at the moment." />
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router'; // Import useRouter to use the router
+import { ref, onMounted, computed } from "vue";
+import { useRouter } from "vue-router"; // Import useRouter to use the router
+import axios from "@/axios";
 
 const router = useRouter(); // Get the router instance
 
-// Sample data for featured promotions on the homepage.
-// Ensure each promotion has a unique 'id'.
-// This 'id' will be used to navigate to the detail page.
-const promotions = ref([
-  {
-    id: 'summer-deal', // UNIQUE ID
-    image: 'https://i.pinimg.com/736x/bf/8a/2e/bf8a2efd2e72a2a39e844648e22e91b3.jpg',
-    title: 'Vibrant Summer Getaway Package',
-    description: 'Enjoy a 20% discount on all rooms for stays of 3 nights or more, including free breakfast and a spa voucher.',
-  },
-  {
-    id: 'spa-dining', // UNIQUE ID
-    image: 'https://i.pinimg.com/736x/c7/3d/f1/c73df1607525aff076e74fd999174bde.jpg',
-    title: 'Ultimate Spa & Dining Experience',
-    description: 'Relax with a premium spa treatment and enjoy a romantic dinner at our restaurant.',
-  },
-  {
-    id: 'family-vacation', // UNIQUE ID
-    image: 'https://i.pinimg.com/736x/55/09/76/5509762d97ab3128443e748606e53026.jpg',
-    title: 'Complete Family Happiness Vacation',
-    description: 'Free stay for children under 12, including tickets to the hotel\'s private play area.',
-  },
-  {
-    id: 'early-bird', // UNIQUE ID
-    image: 'https://i.pinimg.com/736x/72/31/87/7231873bca08272a68cfb7420792051d.jpg',
-    title: 'Early Bird Offer - Maximum Savings',
-    description: 'Book 30 days in advance to receive up to 15% off on all room types.',
-  },
-  // Add other promotions if needed, but only the first 3 will be displayed on the homepage
-]);
-
-// Limit the number of promotions displayed on the homepage (e.g., the first 3)
-const limitedPromotions = computed(() => {
-  return promotions.value.slice(0, 3);
-});
-
+const promotions = ref([]);
+const isLoading = ref(true);
 // Function to navigate to the promotion detail page
 const navigateToDetail = (promoId) => {
   router.push(`/promotions/${promoId}`); // Navigates to /promotions/THE_PROMOTION_ID
@@ -85,8 +86,19 @@ const navigateToDetail = (promoId) => {
 
 // Function to navigate to the list of all promotions
 const navigateToList = () => {
-  router.push('/promotions'); // Navigates to /promotions
+  router.push("/promotions"); // Navigates to /promotions
 };
+
+onMounted(async () => {
+  try {
+    const res = await axios.get("http://localhost:3000/promotion?_limit=3");
+    promotions.value = res.data;
+  } catch (err) {
+    console.error("Lỗi khi tải promotion:", err);
+  } finally {
+    isLoading.value = false;
+  }
+});
 </script>
 
 <style scoped>
@@ -157,6 +169,7 @@ const navigateToList = () => {
   padding: 20px;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 /* Style for the promotion title in the card */
@@ -190,7 +203,8 @@ const navigateToList = () => {
 }
 
 /* Responsive adjustments */
-@media (max-width: 992px) { /* Landscape tablets */
+@media (max-width: 992px) {
+  /* Landscape tablets */
   .section-title {
     font-size: 2.5rem;
   }
@@ -205,7 +219,8 @@ const navigateToList = () => {
   }
 }
 
-@media (max-width: 768px) { /* Portrait tablets / Landscape mobiles */
+@media (max-width: 768px) {
+  /* Portrait tablets / Landscape mobiles */
   .section-title {
     font-size: 2.2rem;
   }
@@ -224,7 +239,8 @@ const navigateToList = () => {
   }
 }
 
-@media (max-width: 576px) { /* Portrait mobiles */
+@media (max-width: 576px) {
+  /* Portrait mobiles */
   .section-title {
     font-size: 1.8rem;
   }

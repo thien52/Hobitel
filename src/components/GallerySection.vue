@@ -5,14 +5,18 @@
         <div class="col-md-8 text-center">
           <h2
             class="section-title fw-bold mb-3"
-            :class="{ 'animate__animated animate__fadeInDown': isSectionVisible }"
+            :class="{
+              'animate__animated animate__fadeInDown': isSectionVisible,
+            }"
             :style="{ 'animation-delay': '0.2s' }"
           >
             {{ sectionTitle }}
           </h2>
           <p
             class="section-subtitle text-muted"
-            :class="{ 'animate__animated animate__fadeInDown': isSectionVisible }"
+            :class="{
+              'animate__animated animate__fadeInDown': isSectionVisible,
+            }"
             :style="{ 'animation-delay': '0.5s' }"
           >
             {{ sectionSubtitle }}
@@ -47,7 +51,11 @@
           :style="`animation-delay: ${0.1 + index * 0.1}s;`"
           :title="`ID: ${image.id}, Visible: ${image.isVisible}`"
         >
-          <el-card shadow="hover" :body-style="{ padding: '0px' }" class="gallery-item-card h-100">
+          <el-card
+            shadow="hover"
+            :body-style="{ padding: '0px' }"
+            class="gallery-item-card h-100"
+          >
             <el-image
               :src="image.src"
               :alt="image.alt || 'Gallery image'"
@@ -56,7 +64,10 @@
               lazy
             >
               <template #placeholder>
-                <div class="image-slot">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+                <div class="image-slot">
+                  Loading<span class="dot">.</span><span class="dot">.</span
+                  ><span class="dot">.</span>
+                </div>
               </template>
               <template #error>
                 <div class="image-slot">
@@ -72,7 +83,10 @@
         </div>
       </div>
 
-      <div v-if="!isLoading && displayedImages.length > 0" class="text-center mt-5">
+      <div
+        v-if="!isLoading && displayedImages.length > 0"
+        class="text-center mt-5"
+      >
         <el-button
           type="danger"
           size="large"
@@ -91,25 +105,25 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
-import { useRouter } from 'vue-router';
-import { Picture, Right } from '@element-plus/icons-vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from "vue";
+import { useRouter } from "vue-router";
+import axios from "@/axios";
 
 const router = useRouter();
 
 const props = defineProps({
   sectionTitle: {
     type: String,
-    default: 'Our Photo Gallery'
+    default: "Our Photo Gallery",
   },
   sectionSubtitle: {
     type: String,
-    default: 'Discover the elegant beauty and memorable moments at Hobitel.'
+    default: "Discover the elegant beauty and memorable moments at Hobitel.",
   },
   imagesToShow: {
     type: Number,
-    default: 6 // Only show 6 images on the homepage
-  }
+    default: 6, // Only show 6 images on the homepage
+  },
 });
 
 const allImages = ref([]);
@@ -155,25 +169,25 @@ const processImageData = (images) => {
   return images.map((img, idx) => ({
     id: img.id || `img-${Date.now() + Math.random()}-${idx}`,
     src: img.src,
-    alt: img.alt || 'Gallery Image',
-    caption: img.caption || '',
-    category: img.category || 'General',
+    alt: img.alt || "Gallery Image",
+    caption: img.caption || "",
+    category: img.category || "General",
     isVisible: false, // Add isVisible state for each image
   }));
 };
 
 const loadImagesForSection = async () => {
   isLoading.value = true;
-  await new Promise(resolve => setTimeout(resolve, 800)); // Simulate loading
+  await new Promise((resolve) => setTimeout(resolve, 800)); // Simulate loading
 
-  allImages.value = processImageData([
-    { id: 'img-1', src: 'https://images.unsplash.com/photo-1505826759037-406b40feb4cd?q=80&w=400&auto=format&fit=crop', alt: 'Luxury hotel poolside view', caption: 'Luxury Pool', category: 'Outdoor' },
-    { id: 'img-2', src: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400&auto=format&fit=crop', alt: 'Modern hotel lobby', caption: 'Modern Lobby', category: 'Indoor' },
-    { id: 'img-3', src: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=400&auto=format&fit=crop', alt: 'Breakfast by the pool', caption: 'Exquisite Breakfast', category: 'Dining' },
-    { id: 'img-4', src: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=400&auto=format&fit=crop', alt: 'Comfortable hotel room bed', caption: 'Comfortable Bedroom', category: 'Rooms' },
-    { id: 'img-5', src: 'https://images.unsplash.com/photo-1561501900-3701fa6a0864?q=80&w=400&auto=format&fit=crop', alt: 'Hotel exterior with palm trees', caption: 'Unique Architecture', category: 'Outdoor' },
-    { id: 'img-6', src: 'https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e?q=80&w=400&auto=format&fit=crop', alt: 'Hotel restaurant dining area', caption: 'Premium Restaurant', category: 'Dining' },
-  ]);
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/gallery?featured=true&_limit=3"
+    );
+    allImages.value = processImageData(response.data);
+  } catch (error) {
+    console.error("Lỗi tải gallery:", error);
+  }
   isLoading.value = false;
 
   await nextTick();
@@ -185,7 +199,7 @@ const displayedImages = computed(() => {
 });
 
 const goToGalleryPage = () => {
-  router.push('/gallery');
+  router.push("/gallery");
 };
 
 const setupImageObserver = () => {
@@ -197,7 +211,9 @@ const setupImageObserver = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const imageId = entry.target.dataset.imageId;
-          const foundImage = displayedImages.value.find(img => img.id === imageId);
+          const foundImage = displayedImages.value.find(
+            (img) => img.id === imageId
+          );
           if (foundImage) {
             foundImage.isVisible = true;
           }
@@ -208,8 +224,8 @@ const setupImageObserver = () => {
     { threshold: 0.1 }
   );
 
-  document.querySelectorAll('.gallery-item-wrapper').forEach(el => {
-    if (!el.classList.contains('animate__animated')) {
+  document.querySelectorAll(".gallery-item-wrapper").forEach((el) => {
+    if (!el.classList.contains("animate__animated")) {
       imageObserver.observe(el);
     }
   });
@@ -246,8 +262,8 @@ const setupImageObserver = () => {
 
 /* Title & Subtitle */
 .section-title {
-  color: #1A3760;
-  font-family: 'Georgia', 'Times New Roman', Times, serif;
+  color: #1a3760;
+  font-family: "Georgia", "Times New Roman", Times, serif;
   font-size: 2.5rem;
   font-weight: bold;
 }
@@ -256,7 +272,7 @@ const setupImageObserver = () => {
   font-size: 1.05rem;
   color: #6c757d;
   margin-bottom: 1.5rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 /* Underline */
@@ -309,7 +325,7 @@ const setupImageObserver = () => {
 }
 
 .gallery-item-card:hover .gallery-image {
-    transform: scale(1.03);
+  transform: scale(1.03);
 }
 
 .gallery-caption {
@@ -326,7 +342,7 @@ const setupImageObserver = () => {
   color: #333;
   font-size: 0.9rem;
   font-weight: 500;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 /* Image Slot (placeholder/error) */
@@ -352,13 +368,27 @@ const setupImageObserver = () => {
   animation: dot 1.4s infinite ease-in-out both;
   display: inline-block;
 }
-.dot:nth-child(1) { animation-delay: -0.32s; }
-.dot:nth-child(2) { animation-delay: -0.16s; }
-.dot:nth-child(3) { animation-delay: 0s; }
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0s;
+}
 
 @keyframes dot {
-  0%, 80%, 100% { opacity: 0; transform: scale(0.8); }
-  40% { opacity: 1; transform: scale(1); }
+  0%,
+  80%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* CTA Button */
@@ -371,10 +401,9 @@ const setupImageObserver = () => {
 }
 
 .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(217, 83, 79, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(217, 83, 79, 0.3);
 }
-
 
 /* Responsive Adjustments */
 @media (max-width: 991.98px) {

@@ -3,13 +3,19 @@
     <div class="container">
       <div class="row justify-content-center mb-5">
         <div class="col-md-8 text-center">
-          <h2 class="section-title fw-bold mb-3 animate__animated animate__fadeInDown">
+          <h2
+            class="section-title fw-bold mb-3 animate__animated animate__fadeInDown"
+          >
             Get In Touch With Us
           </h2>
-          <p class="section-subtitle animate__animated animate__fadeInDown animate__delay-0.5s">
+          <p
+            class="section-subtitle animate__animated animate__fadeInDown animate__delay-0.5s"
+          >
             We are always ready to listen and support you 24/7.
           </p>
-          <div class="title-underline-container animate__animated animate__zoomIn animate__delay-1s">
+          <div
+            class="title-underline-container animate__animated animate__zoomIn animate__delay-1s"
+          >
             <div class="title-underline">
               <span class="title-underline-segment red"></span>
               <span class="title-underline-segment gray"></span>
@@ -33,8 +39,19 @@
                 <component :is="item.iconComponent" />
               </el-icon>
             </div>
-            <h5 class="contact-item-title fw-semibold mb-2">{{ item.title }}</h5>
-            <p class="contact-item-detail text-muted">{{ item.detail }}</p>
+            <h5 class="contact-item-title fw-semibold mb-2">
+              {{ item.title }}
+            </h5>
+            <p class="contact-item-detail">
+              <a
+                v-if="getHref(item)"
+                :href="getHref(item)"
+                class="text-decoration-none text-muted"
+              >
+                {{ item.detail }}
+              </a>
+              <span v-else class="text-muted">{{ item.detail }}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -43,42 +60,52 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { Location, Phone, Message } from '@element-plus/icons-vue'; // Import icons
+import { ref } from "vue";
+import { Location, Phone, Message } from "@element-plus/icons-vue"; // Import icons
 
 const contactItems = ref([
   {
     id: 1,
     iconComponent: Location,
-    title: 'Hotel Address',
-    detail: '123 Beach Road, Da Nang City, Vietnam',
+    title: "Hotel Address",
+    detail: "123 Beach Road, Da Nang City, Vietnam",
   },
   {
     id: 2,
     iconComponent: Phone,
-    title: '24/7 Support',
-    detail: '+84 123 456 789', // Add country code for clarity
+    title: "24/7 Support",
+    detail: "+84 123 456 789", // Add country code for clarity
   },
   {
     id: 3,
     iconComponent: Message,
-    title: 'Contact Email',
-    detail: 'contact@hobitel.com', // Changed to .com for a more international feel
+    title: "Contact Email",
+    detail: "contact@hobitel.com", // Changed to .com for a more international feel
   },
 ]);
+
+function getHref(item) {
+  if (item.title.includes("Support")) return `tel:${item.detail}`;
+  if (item.title.includes("Email")) return `mailto:${item.detail}`;
+  return null;
+}
 </script>
 
 <style scoped>
 /* GENERAL STYLES */
 .contact-info-section {
-  background-color: #f8f9fa; /* Lighter background for contrast */
-  overflow: hidden; /* Ensures no scrollbar during animation */
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.9); /* Nền sáng nhẹ để dễ đọc */
+  background-image: url("https://www.transparenttextures.com/patterns/gray-floral.png");
+  background-repeat: repeat;
+  background-size: 300px;
+  background-position: center;
 }
 
 /* SECTION TITLE & SUBTITLE */
 .section-title {
-  color: #1A3760;
-  font-family: 'Georgia', 'Times New Roman', Times, serif;
+  color: #1a3760;
+  font-family: "Georgia", "Times New Roman", Times, serif;
   font-size: 2.8rem; /* Increased title size */
   font-weight: bold;
 }
@@ -87,7 +114,7 @@ const contactItems = ref([
   font-size: 1.15rem;
   color: #6c757d;
   margin-bottom: 1.5rem; /* Spacing from the underline */
-  font-family: 'Roboto', sans-serif; /* More modern font */
+  font-family: "Roboto", sans-serif; /* More modern font */
 }
 
 /* UNDERLINE ANIMATION */
@@ -154,26 +181,39 @@ const contactItems = ref([
 
 .contact-item:hover .contact-icon-wrapper {
   background-color: #c0392b; /* Change icon color on item hover */
+  animation: pulse 1s infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* TEXT STYLES */
 .contact-item-title {
-  color: #1A3760; /* Darker color */
+  color: #1a3760; /* Darker color */
   font-size: 1.4rem; /* Larger */
   font-weight: 600; /* Bolder */
   margin-bottom: 0.75rem; /* Spacing from the detail */
-  font-family: 'Montserrat', sans-serif; /* More prominent font */
+  font-family: "Montserrat", sans-serif; /* More prominent font */
 }
 
 .contact-item-detail {
   color: #6c757d;
   font-size: 1rem; /* Standard size */
   line-height: 1.6;
-  font-family: 'Open Sans', sans-serif; /* More readable font */
+  font-family: "Open Sans", sans-serif; /* More readable font */
 }
 
 /* RESPONSIVE ADJUSTMENTS */
-@media (max-width: 991.98px) { /* Tablets and large mobiles */
+@media (max-width: 991.98px) {
+  /* Tablets and large mobiles */
   .section-title {
     font-size: 2.2rem;
   }
@@ -195,7 +235,8 @@ const contactItems = ref([
   }
 }
 
-@media (max-width: 767.98px) { /* Mobile */
+@media (max-width: 767.98px) {
+  /* Mobile */
   .section-title {
     font-size: 2rem;
   }

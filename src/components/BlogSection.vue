@@ -3,7 +3,9 @@
     <div class="container">
       <h2 class="section-title text-center mb-5">
         Latest From Our Blog
-        <p class="lead text-muted section-subtitle-text mt-2">Stay informed with our insights, news, and stories.</p>
+        <p class="lead text-muted section-subtitle-text mt-2">
+          Stay informed with our insights, news, and stories.
+        </p>
         <div class="divider"></div>
       </h2>
 
@@ -15,8 +17,16 @@
           class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch"
         >
           <!-- Giao diện card được thiết kế cho trang chủ -->
-          <el-card shadow="hover" :body-style="{ padding: '0px' }" class="blog-card w-100">
-            <img :src="post.imageUrl" :alt="post.title" class="blog-card-image" />
+          <el-card
+            shadow="hover"
+            :body-style="{ padding: '0px' }"
+            class="blog-card w-100"
+          >
+            <img
+              :src="post.imageUrl"
+              :alt="post.title"
+              class="blog-card-image"
+            />
             <div class="card-content p-4">
               <div class="post-meta mb-2">
                 <span v-if="post.category" class="post-category-tag me-2">
@@ -24,16 +34,16 @@
                 </span>
                 <span class="post-date">{{ post.date }}</span>
               </div>
-              <h4 class="post-title h5 mb-3">
-                <a href="#" @click.prevent="viewPost(post.slug)" class="text-decoration-none blog-title-link stretched-link">
-                  {{ post.title }}
-                </a>
-              </h4>
               <p class="post-excerpt text-muted mb-3">
                 {{ post.excerpt }}
               </p>
               <div class="card-footer-action mt-auto">
-                <a href="#" @click.prevent="viewPost(post.slug)" class="btn btn-sm btn-brand-primary read-more-btn">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+                <a
+                  href="#"
+                  @click.prevent="viewPost(post.slug)"
+                  class="btn btn-sm btn-brand-primary read-more-btn"
+                  >Read More <i class="fas fa-arrow-right ms-1"></i
+                ></a>
               </div>
             </div>
           </el-card>
@@ -45,8 +55,8 @@
 
       <div class="text-center mt-5 view-all-blogs-container">
         <el-button type="danger" size="large" round @click="goToBlogPage">
-            VIEW ALL ARTICLES
-            <el-icon class="el-icon--right"><Right /></el-icon>
+          VIEW ALL ARTICLES
+          <el-icon class="el-icon--right"><Right /></el-icon>
         </el-button>
       </div>
     </div>
@@ -54,9 +64,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
-import { Right } from '@element-plus/icons-vue';
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import { Right } from "@element-plus/icons-vue";
 
 const router = useRouter();
 
@@ -64,28 +74,48 @@ const router = useRouter();
 // Component này giờ đây hoàn toàn tự chủ.
 const allPosts = ref([
   {
-    id: 1, slug: 'exploring-modern-architecture', title: 'Exploring the Wonders of Modern Architecture in City X',
-    imageUrl: 'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=874&q=80',
-    date: 'October 26, 2023', category: 'Architecture',
-    excerpt: 'Discover the breathtaking modern architectural marvels that City X has to offer. A journey through design and innovation that redefines urban landscapes.',
+    id: 1,
+    slug: "exploring-modern-architecture",
+    title: "Exploring the Wonders of Modern Architecture in City X",
+    imageUrl:
+      "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=874&q=80",
+    date: "October 26, 2023",
+    category: "Architecture",
+    excerpt:
+      "Discover the breathtaking modern architectural marvels that City X has to offer. A journey through design and innovation that redefines urban landscapes.",
   },
   {
-    id: 2, slug: 'gourmet-dining-experience', title: 'A Culinary Journey: The Best Gourmet Dining Spots',
-    imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-    date: 'October 22, 2023', category: 'Food & Dining',
-    excerpt: 'Embark on a delightful culinary adventure as we explore the finest gourmet restaurants renowned for their exquisite dishes and ambiance.',
+    id: 2,
+    slug: "gourmet-dining-experience",
+    title: "A Culinary Journey: The Best Gourmet Dining Spots",
+    imageUrl:
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+    date: "October 22, 2023",
+    category: "Food & Dining",
+    excerpt:
+      "Embark on a delightful culinary adventure as we explore the finest gourmet restaurants renowned for their exquisite dishes and ambiance.",
   },
   {
-    id: 3, slug: 'wellness-retreats-for-relaxation', title: 'Top Wellness Retreats for Ultimate Relaxation',
-    imageUrl: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-    date: 'October 18, 2023', category: 'Wellness',
-    excerpt: 'Unwind and recharge at these top-rated wellness retreats, offering a perfect escape for peace of mind, body, and soul.',
+    id: 3,
+    slug: "wellness-retreats-for-relaxation",
+    title: "Top Wellness Retreats for Ultimate Relaxation",
+    imageUrl:
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+    date: "October 18, 2023",
+    category: "Wellness",
+    excerpt:
+      "Unwind and recharge at these top-rated wellness retreats, offering a perfect escape for peace of mind, body, and soul.",
   },
   {
-    id: 4, slug: 'local-culture-and-festivals', title: 'Immersing in Local Culture: A Guide to Festivals',
-    imageUrl: 'https://i.pinimg.com/736x/38/88/b4/3888b4278a0c94d56e88e6326dcb779e.jpg',
-    date: 'October 15, 2023', category: 'Culture',
-    excerpt: 'Experience the heart and soul of different cultures by participating in their most colorful and vibrant local festivals and traditions.',
+    id: 4,
+    slug: "local-culture-and-festivals",
+    title: "Immersing in Local Culture: A Guide to Festivals",
+    imageUrl:
+      "https://i.pinimg.com/736x/38/88/b4/3888b4278a0c94d56e88e6326dcb779e.jpg",
+    date: "October 15, 2023",
+    category: "Culture",
+    excerpt:
+      "Experience the heart and soul of different cultures by participating in their most colorful and vibrant local festivals and traditions.",
   },
   // Thêm các bài viết khác nếu muốn
 ]);
@@ -103,23 +133,23 @@ const viewPost = (slug) => {
 };
 
 const goToBlogPage = () => {
-  router.push('/blog');
+  router.push("/blog");
 };
 </script>
 
 <style scoped>
 /* 3. CSS ĐỒNG BỘ VỚI BLOGPAGE.VUE */
 .blog-section {
-  --brand-primary-color: #C09153;
+  --brand-primary-color: #c09153;
   --brand-primary-hover-color: #a67c45;
-  --brand-heading-color: #1A3760;
+  --brand-heading-color: #1a3760;
   --brand-text-color: #495057;
   --brand-text-muted-color: #6c757d;
   --brand-light-bg: #f8f9fa;
   --brand-white-bg: #ffffff;
-  --font-family-heading: 'Playfair Display', serif;
-  --font-family-body: 'Roboto', sans-serif;
-  
+  --font-family-heading: "Playfair Display", serif;
+  --font-family-body: "Roboto", sans-serif;
+
   background-color: var(--brand-light-bg);
 }
 

@@ -1,8 +1,11 @@
 <template>
   <div class="service-page container py-5">
-    <h1 class="page-header-title text-center mb-5">Explore Our Comprehensive Services</h1>
+    <h1 class="page-header-title text-center mb-5">
+      Explore Our Comprehensive Services
+    </h1>
     <p class="lead text-center text-muted mb-5">
-      Discover a world of comfort and convenience designed to make your stay unforgettable.
+      Discover a world of comfort and convenience designed to make your stay
+      unforgettable.
     </p>
 
     <div
@@ -13,7 +16,7 @@
       <div
         :class="[
           'col-12 col-md-6',
-          index % 2 !== 0 ? 'order-md-2' : 'order-md-1'
+          index % 2 !== 0 ? 'order-md-2' : 'order-md-1',
         ]"
         class="mb-4 mb-md-0"
       >
@@ -39,18 +42,34 @@
       <div
         :class="[
           'col-12 col-md-6',
-          index % 2 !== 0 ? 'order-md-1' : 'order-md-2'
+          index % 2 !== 0 ? 'order-md-1' : 'order-md-2',
         ]"
       >
         <div class="p-4 p-lg-5 bg-light rounded service-content">
-          <span class="text-uppercase fw-bold service-category">Our Services</span>
-          <h2 class="display-6 fw-bold mt-1 mb-3 service-title">{{ service.title }}</h2>
-          <p class="text-muted mb-4 service-description">{{ service.description }}</p>
+          <span class="text-uppercase fw-bold service-category"
+            >Our Services</span
+          >
+          <h2 class="display-6 fw-bold mt-1 mb-3 service-title">
+            {{ service.title }}
+          </h2>
+          <p class="text-muted mb-4 service-description">
+            {{ service.description }}
+          </p>
           <div class="d-flex flex-wrap">
-            <el-button type="danger" size="large" @click="viewDetails(service)" class="mb-2 me-2">
+            <el-button
+              type="danger"
+              size="large"
+              @click="viewDetails(service)"
+              class="mb-2 me-2"
+            >
               VIEW DETAIL
             </el-button>
-            <el-button type="primary" size="large" @click="addServiceToCart(service)" class="mb-2">
+            <el-button
+              type="primary"
+              size="large"
+              @click="addServiceToCart(service)"
+              class="mb-2"
+            >
               USE SERVICE
             </el-button>
           </div>
@@ -58,8 +77,13 @@
       </div>
     </div>
 
-    <div v-if="selectedServices.length > 0" class="mt-5 p-4 bg-white shadow-sm rounded selected-services-summary">
-      <h3 class="mb-4 text-center service-summary-title">Your Selected Services</h3>
+    <div
+      v-if="selectedServices.length > 0"
+      class="mt-5 p-4 bg-white shadow-sm rounded selected-services-summary"
+    >
+      <h3 class="mb-4 text-center service-summary-title">
+        Your Selected Services
+      </h3>
       <el-table :data="selectedServices" style="width: 100%" class="mb-3">
         <el-table-column prop="title" label="Service" min-width="180" />
         <el-table-column label="Price" width="120">
@@ -73,9 +97,12 @@
               v-model="scope.row.quantity"
               :min="1"
               size="small"
-              @change="(currentValue) => handleQuantityChange(scope.row.id, currentValue)"
+              @change="
+                (currentValue) =>
+                  handleQuantityChange(scope.row.id, currentValue)
+              "
               controls-position="right"
-              style="width: 100px;"
+              style="width: 100px"
             />
           </template>
         </el-table-column>
@@ -86,100 +113,93 @@
         </el-table-column>
         <el-table-column label="Actions" width="100" align="center">
           <template #default="scope">
-            <el-button type="danger" size="small" @click="removeItemFromCart(scope.row.id)" plain circle>
+            <el-button
+              type="danger"
+              size="small"
+              @click="removeItemFromCart(scope.row.id)"
+              plain
+              circle
+            >
               <el-icon><icon-delete /></el-icon>
             </el-button>
           </template>
         </el-table-column>
       </el-table>
-      <div class="text-end mt-4 d-flex justify-content-between align-items-center">
+      <div
+        class="text-end mt-4 d-flex justify-content-between align-items-center"
+      >
         <el-button type="info" plain @click="clearSelectedServices">
           <el-icon class="me-1"><CircleClose /></el-icon> Clear All
         </el-button>
-        <h4 class="fw-bold mb-0">Total Cost: <span class="text-danger">${{ totalCost.toFixed(2) }}</span></h4>
+        <h4 class="fw-bold mb-0">
+          Total Cost:
+          <span class="text-danger">${{ totalCost.toFixed(2) }}</span>
+        </h4>
       </div>
     </div>
 
-    <div v-else class="mt-5 p-4 bg-white shadow-sm rounded selected-services-summary text-center text-muted">
-      <p class="mb-0">No services selected yet. Click "USE SERVICE" to add items to your summary.</p>
+    <div
+      v-else
+      class="mt-5 p-4 bg-white shadow-sm rounded selected-services-summary text-center text-muted"
+    >
+      <p class="mb-0">
+        No services selected yet. Click "USE SERVICE" to add items to your
+        summary.
+      </p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import { ElMessage } from 'element-plus'; // Removed ElLoading as no async data fetch
-import { Delete as IconDelete, Picture as IconPicture, CircleClose } from '@element-plus/icons-vue'; // Removed Loading icon
+import { ref, computed, onMounted } from "vue";
+import { ElMessage } from "element-plus"; // Removed ElLoading as no async data fetch
+import axios from "@/axios";
 
 // Hardcoded services data
-const services = ref([
-  {
-    id: 1,
-    imageSrc: 'https://hibtel.webhotel.vn/assets/image/facilities-1.jpg',
-    title: 'Exquisite Dining Experience',
-    description: 'Savor gourmet dishes prepared by our award-winning chefs. Our restaurant offers a unique blend of local flavors and international cuisine in an elegant setting. Perfect for a romantic dinner or a special celebration.',
-    price: 75.00,
-  },
-  {
-    id: 2,
-    imageSrc: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3BhJTIwdHJlYXRtZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
-    title: 'Relaxing Spa & Wellness Treatments',
-    description: 'Unwind and rejuvenate with our wide range of spa treatments. From soothing massages to invigorating facials, our expert therapists will ensure a blissful experience for your mind and body.',
-    price: 120.00,
-  },
-  {
-    id: 3,
-    imageSrc: 'https://i.pinimg.com/736x/57/32/1b/57321b3fca7242ba52da622d3b079b35.jpg',
-    title: 'Modern Conference Facilities',
-    description: 'Host your next event in our fully equipped conference rooms. With state-of-the-art audiovisual technology and flexible layouts, we provide the perfect environment for successful meetings, seminars, and workshops.',
-    price: 200.00,
-  },
-  {
-    id: 4,
-    imageSrc: 'https://i.pinimg.com/736x/20/42/d5/2042d5e371ed18dd1a7de511b5dbdd81.jpg',
-    title: 'State-of-the-Art Fitness Center',
-    description: 'Maintain your fitness routine with our modern fitness center. Equipped with a variety of cardio machines, weightlifting equipment, and dedicated spaces for yoga and stretching.',
-    price: 30.00, // Example price for daily access
-  },
-  {
-    id: 5,
-    imageSrc: 'https://i.pinimg.com/736x/67/4c/8c/674c8c699db95d18e0a19fdd3fff8709.jpg',
-    title: 'Refreshing Swimming Pool Access',
-    description: 'Dive into relaxation at our expansive swimming pool. Whether for a leisurely swim or fun with family, our pool area offers a refreshing escape with comfortable seating and poolside service.',
-    price: 25.00, // Example price for daily access
-  },
-]);
-
+const services = ref([]);
+const fetchServices = async () => {
+  try {
+    const response = await axios.get("/services");
+    services.value = response.data;
+    console.log(" services nhận được:", response.data); // Thêm dòng này
+  } catch (error) {
+    console.error("Lỗi tải dữ liệu services:", error);
+  }
+};
 const selectedServices = ref([]); // Stores { id, title, price, quantity }
 
 onMounted(() => {
-  window.scrollTo(0, 0); // Scroll to top on mount
+  fetchServices(), window.scrollTo(0, 0); // Scroll to top on mount
 });
 
 const viewDetails = (service) => {
-  console.log('View details for:', service.title);
+  console.log("View details for:", service.title);
   // In a real application, you'd navigate to a detail page or open a modal
   ElMessage.info(`Viewing details for: ${service.title}`);
 };
 
 const addServiceToCart = (service) => {
-  const existingItem = selectedServices.value.find(item => item.id === service.id);
+  const existingItem = selectedServices.value.find(
+    (item) => item.id === service.id
+  );
   if (existingItem) {
     existingItem.quantity++;
-    ElMessage.success(`${service.title} quantity updated to ${existingItem.quantity}.`);
+    ElMessage.success(
+      `${service.title} quantity updated to ${existingItem.quantity}.`
+    );
   } else {
     selectedServices.value.push({
       id: service.id,
       title: service.title,
       price: service.price,
-      quantity: 1
+      quantity: 1,
     });
     ElMessage.success(`${service.title} added to your selected services.`);
   }
 };
 
 const handleQuantityChange = (itemId, newQuantity) => {
-  const item = selectedServices.value.find(item => item.id === itemId);
+  const item = selectedServices.value.find((item) => item.id === itemId);
   if (item) {
     item.quantity = newQuantity;
     ElMessage.success(`Quantity for ${item.title} changed to ${newQuantity}.`);
@@ -187,7 +207,9 @@ const handleQuantityChange = (itemId, newQuantity) => {
 };
 
 const removeItemFromCart = (itemId) => {
-  const itemIndex = selectedServices.value.findIndex(item => item.id === itemId);
+  const itemIndex = selectedServices.value.findIndex(
+    (item) => item.id === itemId
+  );
   if (itemIndex !== -1) {
     const itemTitle = selectedServices.value[itemIndex].title;
     selectedServices.value.splice(itemIndex, 1);
@@ -196,12 +218,15 @@ const removeItemFromCart = (itemId) => {
 };
 
 const clearSelectedServices = () => {
-    selectedServices.value = [];
-    ElMessage.info('All selected services have been cleared.');
+  selectedServices.value = [];
+  ElMessage.info("All selected services have been cleared.");
 };
 
 const totalCost = computed(() => {
-  return selectedServices.value.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  return selectedServices.value.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
 });
 </script>
 
@@ -214,10 +239,10 @@ const totalCost = computed(() => {
 }
 
 .page-header-title {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 3rem;
   font-weight: 700;
-  color: #1A3760;
+  color: #1a3760;
   line-height: 1.2;
 }
 
@@ -241,14 +266,14 @@ const totalCost = computed(() => {
 }
 
 .service-category {
-  color: #C09153; /* Consistent primary accent color */
+  color: #c09153; /* Consistent primary accent color */
   font-size: 0.85rem;
   letter-spacing: 0.05em;
   font-weight: 700 !important;
 }
 
 .service-title {
-  font-family: 'Georgia', serif;
+  font-family: "Georgia", serif;
   color: #333;
   font-size: 2.2rem; /* Adjusted for better hierarchy */
 }
@@ -287,32 +312,35 @@ const totalCost = computed(() => {
   animation-delay: 0s;
 }
 @keyframes dot {
-  0%, 80%, 100% {
+  0%,
+  80%,
+  100% {
     transform: scale(0);
   }
   40% {
-    transform: scale(1.0);
+    transform: scale(1);
   }
 }
 
 /* Buttons */
 .el-button--danger {
-    background-color: #C09153 !important; /* Primary button color */
-    border-color: #C09153 !important;
-    color: #fff !important;
+  background-color: #c09153 !important; /* Primary button color */
+  border-color: #c09153 !important;
+  color: #fff !important;
 }
 .el-button--danger:hover {
-    background-color: #b38246 !important;
-    border-color: #b38246 !important;
+  background-color: #b38246 !important;
+  border-color: #b38246 !important;
 }
-.el-button--primary { /* For "USE SERVICE" */
-    background-color: #1A3760 !important; /* Darker accent color */
-    border-color: #1A3760 !important;
-    color: #fff !important;
+.el-button--primary {
+  /* For "USE SERVICE" */
+  background-color: #1a3760 !important; /* Darker accent color */
+  border-color: #1a3760 !important;
+  color: #fff !important;
 }
 .el-button--primary:hover {
-    background-color: #0d2740 !important;
-    border-color: #0d2740 !important;
+  background-color: #0d2740 !important;
+  border-color: #0d2740 !important;
 }
 .el-button--large {
   padding: 12px 25px;
@@ -329,8 +357,8 @@ const totalCost = computed(() => {
 }
 
 .service-summary-title {
-  font-family: 'Georgia', serif;
-  color: #1A3760;
+  font-family: "Georgia", serif;
+  color: #1a3760;
   font-weight: bold;
 }
 
@@ -340,29 +368,31 @@ const totalCost = computed(() => {
   font-weight: 600;
 }
 
-.selected-services-summary .el-button--danger.is-plain.is-circle { /* For delete button */
-    color: #dc3545 !important;
-    border-color: #dc3545 !important;
+.selected-services-summary .el-button--danger.is-plain.is-circle {
+  /* For delete button */
+  color: #dc3545 !important;
+  border-color: #dc3545 !important;
 }
 .selected-services-summary .el-button--danger.is-plain.is-circle:hover {
-    background-color: #dc3545 !important;
-    color: white !important;
+  background-color: #dc3545 !important;
+  color: white !important;
 }
 
-.selected-services-summary .el-button--info.is-plain { /* Clear All button */
-    color: #6c757d;
-    border-color: #6c757d;
+.selected-services-summary .el-button--info.is-plain {
+  /* Clear All button */
+  color: #6c757d;
+  border-color: #6c757d;
 }
 .selected-services-summary .el-button--info.is-plain:hover {
-    background-color: #6c757d;
-    color: white;
+  background-color: #6c757d;
+  color: white;
 }
-
 
 /* Responsive adjustments based on Bootstrap 5 breakpoints */
 /* No need for @media (max-width: 991.98px) for col-md-6, as bootstrap handles this */
 
-@media (max-width: 767.98px) { /* Small devices (sm) and down */
+@media (max-width: 767.98px) {
+  /* Small devices (sm) and down */
   .page-header-title {
     font-size: 2rem;
   }
@@ -385,10 +415,10 @@ const totalCost = computed(() => {
   }
   /* Force image then text order on small screens for all items */
   .service-item > div {
-      order: 1 !important;
+    order: 1 !important;
   }
   .service-item > div:nth-child(2) {
-      order: 2 !important;
+    order: 2 !important;
   }
 }
 </style>

@@ -4,7 +4,8 @@
       <div class="container">
         <h1 class="page-title">Our Latest News & Articles</h1>
         <p class="lead text-muted page-subtitle">
-          Stay updated with the latest happenings, tips, and stories from our team.
+          Stay updated with the latest happenings, tips, and stories from our
+          team.
         </p>
       </div>
     </section>
@@ -25,29 +26,50 @@
               </el-empty>
             </div>
             <div v-else>
-              <article v-for="post in filteredPosts" :key="post.id" class="blog-post-item mb-5">
+              <article
+                v-for="post in filteredPosts"
+                :key="post.id"
+                class="blog-post-item mb-5"
+              >
                 <el-card shadow="hover" :body-style="{ padding: '0px' }">
                   <div class="row g-0">
                     <div class="col-md-5">
-                      <img :src="post.imageUrl" :alt="post.title" class="blog-post-image img-fluid" />
+                      <img
+                        :src="post.imageUrl"
+                        :alt="post.title"
+                        class="blog-post-image img-fluid"
+                      />
                     </div>
                     <div class="col-md-7 d-flex flex-column">
                       <div class="card-body-content flex-grow-1">
                         <div class="post-meta mb-2">
-                          <span v-if="post.category" class="post-category-tag me-3">
+                          <span
+                            v-if="post.category"
+                            class="post-category-tag me-3"
+                          >
                             {{ post.category }}
                           </span>
                           <span class="post-date">{{ post.date }}</span>
                         </div>
                         <h3 class="post-title h4">
-                          <a href="#" @click.prevent="viewPost(post.slug)" class="text-decoration-none stretched-link blog-title-link">{{ post.title }}</a>
+                          <a
+                            href="#"
+                            @click.prevent="viewPost(post.slug)"
+                            class="text-decoration-none stretched-link blog-title-link"
+                            >{{ post.title }}</a
+                          >
                         </h3>
                         <p class="post-excerpt">
                           {{ post.excerpt }}
                         </p>
                       </div>
                       <div class="card-footer-action bg-transparent">
-                          <a href="#" @click.prevent="viewPost(post.slug)" class="btn btn-sm btn-brand-primary read-more-btn">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+                        <a
+                          href="#"
+                          @click.prevent="viewPost(post.slug)"
+                          class="btn btn-sm btn-brand-primary read-more-btn"
+                          >Read More <i class="fas fa-arrow-right ms-1"></i
+                        ></a>
                       </div>
                     </div>
                   </div>
@@ -60,8 +82,20 @@
             <div class="sidebar-widget">
               <h4 class="widget-title h5">Search Articles</h4>
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search by title or excerpt..." v-model="searchTerm" @keyup.enter="applyFilters">
-                <button class="btn btn-brand-primary" type="button" @click="applyFilters"><i class="fas fa-search"></i></button>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search by title or excerpt..."
+                  v-model="searchTerm"
+                  @keyup.enter="applyFilters"
+                />
+                <button
+                  class="btn btn-brand-primary"
+                  type="button"
+                  @click="applyFilters"
+                >
+                  <i class="fas fa-search"></i>
+                </button>
               </div>
             </div>
 
@@ -69,15 +103,33 @@
               <h4 class="widget-title h5">Categories</h4>
               <ul class="list-unstyled widget-list">
                 <li>
-                  <a href="#" @click.prevent="resetCategoryFilter"
-                     :class="['text-decoration-none category-link', { 'active': !selectedCategorySlug }]">
-                    All Categories <span class="badge count-badge float-end">{{ allPosts.length }}</span>
+                  <a
+                    href="#"
+                    @click.prevent="resetCategoryFilter"
+                    :class="[
+                      'text-decoration-none category-link',
+                      { active: !selectedCategorySlug },
+                    ]"
+                  >
+                    All Categories
+                    <span class="badge count-badge float-end">{{
+                      allPosts.length
+                    }}</span>
                   </a>
                 </li>
                 <li v-for="category in categories" :key="category.slug">
-                  <a href="#" @click.prevent="filterByCategory(category.slug)"
-                     :class="['text-decoration-none category-link', { 'active': selectedCategorySlug === category.slug }]">
-                    {{ category.name }} <span class="badge count-badge float-end">{{ category.count }}</span>
+                  <a
+                    href="#"
+                    @click.prevent="filterByCategory(category.slug)"
+                    :class="[
+                      'text-decoration-none category-link',
+                      { active: selectedCategorySlug === category.slug },
+                    ]"
+                  >
+                    {{ category.name }}
+                    <span class="badge count-badge float-end">{{
+                      category.count
+                    }}</span>
                   </a>
                 </li>
               </ul>
@@ -87,7 +139,12 @@
               <h4 class="widget-title h5">Recent Posts</h4>
               <ul class="list-unstyled widget-list">
                 <li v-for="recentPost in recentPosts" :key="recentPost.id">
-                  <a href="#" @click.prevent="viewPost(recentPost.slug)" class="text-decoration-none recent-post-link">{{ recentPost.title }}</a>
+                  <a
+                    href="#"
+                    @click.prevent="viewPost(recentPost.slug)"
+                    class="text-decoration-none recent-post-link"
+                    >{{ recentPost.title }}</a
+                  >
                 </li>
               </ul>
             </div>
@@ -99,70 +156,34 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue';
-import { useRouter } from 'vue-router';
-import { ElEmpty, ElButton, ElIcon } from 'element-plus'; // Import Element Plus components
-import { Refresh } from '@element-plus/icons-vue'; // Import Refresh icon for the "Show All Posts" button
-
+import { ref, onMounted, computed, watch } from "vue";
+import { useRouter } from "vue-router";
+import { Refresh } from "@element-plus/icons-vue"; // Import Refresh icon for the "Show All Posts" button
+import axios from "@/axios";
 const router = useRouter();
 
 // Dữ liệu blog mẫu (đã được làm giàu thêm)
-const allPosts = ref([
-  {
-    id: 1, slug: 'exploring-modern-architecture', title: 'Exploring the Wonders of Modern Architecture in City X',
-    imageUrl: 'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=874&q=80',
-    date: 'October 26, 2023', category: 'Architecture',
-    excerpt: 'Discover the breathtaking modern architectural marvels that City X has to offer. A journey through design and innovation that redefines urban landscapes.',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  },
-  {
-    id: 2, slug: 'gourmet-dining-experience', title: 'A Culinary Journey: The Best Gourmet Dining Spots',
-    imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-    date: 'October 22, 2023', category: 'Food & Dining',
-    excerpt: 'Embark on a delightful culinary adventure as we explore the finest gourmet restaurants renowned for their exquisite dishes and ambiance. A must-read for food lovers!',
-    content: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.'
-  },
-  {
-    id: 3, slug: 'wellness-retreats-for-relaxation', title: 'Top Wellness Retreats for Ultimate Relaxation',
-    imageUrl: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-    date: 'October 18, 2023', category: 'Wellness',
-    excerpt: 'Unwind and recharge at these top-rated wellness retreats, offering a perfect escape for peace of mind, body, and soul. Discover tranquility in nature and luxurious spas.',
-    content: 'Fusce eu ligula in libero mollis fermentum. Etiam dictum egestas elit. Nunc ut neque. Duis semper. Duis arcu massa, scelerisque sit amet, dictum at, dapibus et, eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-  {
-    id: 4, slug: 'local-culture-and-festivals', title: 'Immersing in Local Culture: A Guide to Festivals',
-    imageUrl: 'https://i.pinimg.com/736x/38/88/b4/3888b4278a0c94d56e88e6326dcb779e.jpg',
-    date: 'October 15, 2023', category: 'Culture',
-    excerpt: 'Experience the heart and soul of different cultures by participating in their most colorful and vibrant local festivals and traditions. A truly unforgettable experience.',
-    content: 'Nulla lectus est, varius in, dictum a, dapibus quis, lectus. Sed sollicitudin eleifend ipsum. In non odio. Donec eu massa quis mauris sollicitudin lacinia. Aliquam in nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-  {
-    id: 5, slug: 'future-of-hospitality', title: 'The Future of Hospitality: Trends to Watch in 2024',
-    imageUrl: 'https://i.pinimg.com/736x/bc/bb/5f/bcbb5f3d56fa1479643f94f15c4bea21.jpg', 
-    date: 'October 10, 2023', category: 'Hospitality',
-    excerpt: 'Explore the exciting trends shaping the hospitality industry, from AI-powered services to sustainable tourism practices. Get ready for a new era of guest experiences.',
-    content: 'Vivamus hendrerit arcu sed erat. Pellentesque quis purus sit amet sem elementum ornare. Sed fringilla ligula eu sapien. Nulla facilisi. Proin interdum felis eu sapien. Duis at ante. Curabitur vitae lorem. In et nulla at lorem bibendum scelerisque.'
-  },
-  {
-    id: 6, slug: 'eco-friendly-travel-tips', title: 'Sustainable Travel: Your Guide to Eco-Friendly Adventures',
-    imageUrl: 'https://i.pinimg.com/736x/78/82/cd/7882cd699158ab774f0544605b3112c3.jpg',
-    date: 'October 05, 2023', category: 'Travel',
-    excerpt: 'Learn how to reduce your environmental footprint while exploring the world. Practical tips for responsible tourism and mindful journeys.',
-    content: 'Cras nec urna eu purus porttitor ullamcorper. Suspendisse eu libero. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris euismod. Proin semper sagittis ante.'
+const allPosts = ref([]);
+const fetchPosts = async () => {
+  try {
+    const response = await axios.get("/posts");
+    allPosts.value = response.data;
+    console.log(" Post nhận được:", response.data); // Thêm dòng này
+  } catch (error) {
+    console.error("Lỗi tải dữ liệu posts:", error);
   }
-]);
-
+};
 // ref để lưu trữ bài viết đã được lọc/tìm kiếm
 const filteredPosts = ref([]);
-const searchTerm = ref('');
+const searchTerm = ref("");
 const selectedCategorySlug = ref(null); // Lưu trữ slug của danh mục đang được chọn
 
 // Computed properties
 const categories = computed(() => {
   const cats = {};
-  allPosts.value.forEach(post => {
+  allPosts.value.forEach((post) => {
     if (post.category) {
-      const slug = post.category.toLowerCase().replace(/\s+/g, '-');
+      const slug = post.category.toLowerCase().replace(/\s+/g, "-");
       if (cats[slug]) {
         cats[slug].count++;
       } else {
@@ -176,7 +197,9 @@ const categories = computed(() => {
 
 const recentPosts = computed(() => {
   // Sắp xếp theo ngày (mới nhất trước) hoặc ID giảm dần nếu ngày không có dạng chuẩn
-  return [...allPosts.value].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 4);
+  return [...allPosts.value]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 4);
 });
 
 // Functions
@@ -185,39 +208,49 @@ const applyFilters = () => {
 
   // Apply category filter first
   if (selectedCategorySlug.value) {
-    tempPosts = tempPosts.filter(post =>
-      post.category && post.category.toLowerCase().replace(/\s+/g, '-') === selectedCategorySlug.value
+    tempPosts = tempPosts.filter(
+      (post) =>
+        post.category &&
+        post.category.toLowerCase().replace(/\s+/g, "-") ===
+          selectedCategorySlug.value
     );
   }
 
   // Apply search term filter
   if (searchTerm.value.trim()) {
     const lowerSearchTerm = searchTerm.value.toLowerCase();
-    tempPosts = tempPosts.filter(post =>
-      post.title.toLowerCase().includes(lowerSearchTerm) ||
-      post.excerpt.toLowerCase().includes(lowerSearchTerm) ||
-      (post.content && post.content.toLowerCase().includes(lowerSearchTerm)) // Search in full content too
+    tempPosts = tempPosts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(lowerSearchTerm) ||
+        post.excerpt.toLowerCase().includes(lowerSearchTerm) ||
+        (post.content && post.content.toLowerCase().includes(lowerSearchTerm)) // Search in full content too
     );
   }
 
   filteredPosts.value = tempPosts;
 };
 
-const viewPost = (slug) => {
-  // In a real application, you would navigate to a single post page:
-  router.push(`/blog/${slug}`);
-  console.log(`Navigating to blog post: /blog/${slug}`);
-  // ElMessage.info(`Navigating to: /blog/${slug}`); // For demonstration
+const viewPost = async (slug) => {
+  try {
+    await router.push(`/blog/${slug}`);
+  } catch (e) {
+    console.error("Navigation error:", e);
+  }
 };
 
 const filterByCategory = (slug) => {
   selectedCategorySlug.value = slug;
-  searchTerm.value = ''; // Clear search when filtering by category
+  searchTerm.value = ""; // Clear search when filtering by category
   applyFilters();
   // Scroll to content section for better UX after filtering
-  const contentSection = document.querySelector('.blog-content-section');
+  const contentSection = document.querySelector(".blog-content-section");
   if (contentSection) {
-    window.scrollTo({ top: contentSection.offsetTop - (document.querySelector('.navbar')?.offsetHeight || 80), behavior: 'smooth' });
+    window.scrollTo({
+      top:
+        contentSection.offsetTop -
+        (document.querySelector(".navbar")?.offsetHeight || 80),
+      behavior: "smooth",
+    });
   }
 };
 
@@ -227,7 +260,7 @@ const resetCategoryFilter = () => {
 };
 
 const resetFiltersAndSearch = () => {
-  searchTerm.value = '';
+  searchTerm.value = "";
   selectedCategorySlug.value = null;
   applyFilters(); // This will reset filteredPosts to allPosts
 };
@@ -239,6 +272,7 @@ watch([searchTerm, selectedCategorySlug], () => {
 
 // Initial load: apply filters (this will show all posts initially)
 onMounted(() => {
+  fetchPosts();
   resetFiltersAndSearch(); // Ensure all posts are shown on initial load
   window.scrollTo(0, 0); // Scroll to top
 });
@@ -248,17 +282,17 @@ onMounted(() => {
 /* --- BIẾN MÀU VÀ FONT --- */
 /* Cần định nghĩa các biến màu chính của theme nếu chưa có ở global CSS */
 :root {
-  --brand-primary-color: #C09153; /* Màu vàng cam */
+  --brand-primary-color: #c09153; /* Màu vàng cam */
   --brand-primary-hover-color: #a67c45; /* Hover của màu vàng cam */
-  --brand-heading-color: #1A3760; /* Màu xanh đậm cho tiêu đề */
+  --brand-heading-color: #1a3760; /* Màu xanh đậm cho tiêu đề */
   --brand-text-color: #495057; /* Màu chữ chính */
   --brand-text-muted-color: #6c757d; /* Màu chữ phụ */
   --brand-light-bg: #f8f9fa; /* Nền sáng */
   --brand-white-bg: #ffffff; /* Nền trắng */
   --brand-border-color: #e9ecef; /* Màu viền */
 
-  --font-family-heading: 'Playfair Display', serif; /* Font cho tiêu đề */
-  --font-family-body: 'Roboto', sans-serif; /* Font cho nội dung */
+  --font-family-heading: "Playfair Display", serif; /* Font cho tiêu đề */
+  --font-family-body: "Roboto", sans-serif; /* Font cho nội dung */
 }
 
 /* --- STYLE CHUNG CHO TRANG --- */
@@ -270,7 +304,9 @@ onMounted(() => {
 
 /* --- HERO SECTION --- */
 .blog-hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center; /* Thay ảnh background */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+      no-repeat center center; /* Thay ảnh background */
   background-size: cover;
   color: #fff; /* Chữ trắng trên nền tối */
   padding-top: 6rem; /* Tăng padding để tạo khoảng trống */
@@ -283,7 +319,7 @@ onMounted(() => {
   font-weight: 700;
   color: #fff; /* Màu trắng */
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Thêm đổ bóng cho chữ */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Thêm đổ bóng cho chữ */
 }
 .page-subtitle {
   color: rgba(255, 255, 255, 0.85); /* Màu trắng mờ */
@@ -395,7 +431,8 @@ onMounted(() => {
   padding: 0.7rem 1.4rem; /* Tăng padding button */
   border-radius: 5px;
   letter-spacing: 0.5px;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease;
 }
 .btn-brand-primary:hover {
   background-color: var(--brand-primary-hover-color) !important;
@@ -429,7 +466,7 @@ onMounted(() => {
   border-bottom: 1px solid var(--brand-border-color);
 }
 .widget-title.h5::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -1px;
   left: 0;
@@ -453,7 +490,7 @@ onMounted(() => {
   border-bottom-left-radius: 0;
 }
 .sidebar-widget .input-group .btn-brand-primary i {
-    font-size: 1rem; /* Tăng kích thước icon search */
+  font-size: 1rem; /* Tăng kích thước icon search */
 }
 
 .widget-list {
@@ -474,7 +511,8 @@ onMounted(() => {
 .widget-list li a.recent-post-link:hover {
   color: var(--brand-primary-color);
 }
-.widget-list li a.category-link.active { /* Style cho danh mục đang active */
+.widget-list li a.category-link.active {
+  /* Style cho danh mục đang active */
   color: var(--brand-primary-color);
   font-weight: bold;
 }
@@ -488,7 +526,8 @@ onMounted(() => {
 }
 
 /* Responsive adjustments */
-@media (max-width: 991.98px) { /* Medium devices and down */
+@media (max-width: 991.98px) {
+  /* Medium devices and down */
   .page-title {
     font-size: 2.8rem;
   }
@@ -497,7 +536,8 @@ onMounted(() => {
   }
 }
 
-@media (max-width: 767.98px) { /* Small devices (sm) and down */
+@media (max-width: 767.98px) {
+  /* Small devices (sm) and down */
   .blog-hero {
     padding-top: 4rem;
     padding-bottom: 4rem;

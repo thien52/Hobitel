@@ -1,8 +1,7 @@
 <template>
-  <el-footer class="bg-dark text-white" style="padding: 40px 0; height: 100%;">
+  <el-footer class="bg-dark text-white" style="padding: 40px 0; height: 100%">
     <div class="container">
       <el-row :gutter="20">
-        
         <!-- Column 1: Logo and description -->
         <el-col :xs="24" :md="8">
           <h5 class="d-flex align-items-center">
@@ -16,7 +15,8 @@
             Hobitel
           </h5>
           <p>
-            Welcome to Hobitel – where we provide the perfect vacation with world-class service and luxurious spaces.
+            Welcome to Hobitel – where we provide the perfect vacation with
+            world-class service and luxurious spaces.
           </p>
         </el-col>
 
@@ -24,9 +24,15 @@
         <el-col :xs="24" :md="8">
           <h5 class="mb-3">Links</h5>
           <ul class="list-unstyled">
-            <p><a href="#" class="text-white text-decoration-none">Home</a></p>
-            <p><a href="#" class="text-white text-decoration-none">About</a></p>
-            <p><a href="#" class="text-white text-decoration-none">Rooms</a></p>
+            <li>
+              <a href="#" class="text-white text-decoration-none">Home</a>
+            </li>
+            <li>
+              <a href="#" class="text-white text-decoration-none">About</a>
+            </li>
+            <li>
+              <a href="#" class="text-white text-decoration-none">Rooms</a>
+            </li>
           </ul>
         </el-col>
 
@@ -37,7 +43,6 @@
           <p><i class="bi bi-telephone-fill"></i> +84 123 456 789</p>
           <p><i class="bi bi-envelope-fill"></i> contact@hobitel.com</p>
         </el-col>
-
       </el-row>
     </div>
   </el-footer>

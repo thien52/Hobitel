@@ -34,7 +34,11 @@
           class="alert alert-info p-3 mb-4 promotion-alert"
         >
           <div class="d-flex align-items-center">
-            <el-icon v-if="promotionIcon" :size="24" class="me-2 flex-shrink-0 promotion-icon">
+            <el-icon
+              v-if="promotionIcon"
+              :size="24"
+              class="me-2 flex-shrink-0 promotion-icon"
+            >
               <component :is="promotionIcon" />
             </el-icon>
             <span>{{ promotionalMessage }}</span>
@@ -48,7 +52,9 @@
             :class="features.length === 1 ? 'col-md-12' : 'col-md-6'"
             class="feature-col"
           >
-            <div class="d-flex align-items-start feature-item p-3 bg-light rounded-3 h-100">
+            <div
+              class="d-flex align-items-start feature-item p-3 bg-light rounded-3 h-100"
+            >
               <div v-if="feature.icon" class="feature-icon me-3 flex-shrink-0">
                 <el-icon :size="35" color="#D9534F">
                   <component :is="feature.icon" />
@@ -64,11 +70,10 @@
           </div>
         </div>
 
-        <div
-          v-if="quote.text"
-          class="quote-block p-4 rounded-3 mb-4"
-        >
-          <el-icon :size="30" class="quote-icon mb-2"><ChatDotSquare /></el-icon>
+        <div v-if="quote.text" class="quote-block p-4 rounded-3 mb-4">
+          <el-icon :size="30" class="quote-icon mb-2"
+            ><ChatDotSquare
+          /></el-icon>
           <p class="mb-2 fst-italic">{{ quote.text }}</p>
           <footer class="blockquote-footer mt-2">{{ quote.author }}</footer>
         </div>
@@ -90,91 +95,103 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
-import { Promotion as DefaultPromotionIcon, Star, Right, Service, CoffeeCup, ChatDotSquare, TrophyBase, OfficeBuilding } from '@element-plus/icons-vue';
+import { useRouter } from "vue-router";
+import {
+  Promotion as DefaultPromotionIcon,
+  Star,
+  Right,
+  Service,
+  CoffeeCup,
+  ChatDotSquare,
+  TrophyBase,
+  OfficeBuilding,
+} from "@element-plus/icons-vue";
 
 const router = useRouter();
 
 const props = defineProps({
   mainImageUrl: {
     type: String,
-    default: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    default:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   secondaryImageUrl: {
     type: String,
-    default: ''
+    default: "",
   },
   imageAlt: {
     type: String,
-    default: 'Hotel View - About Our Hotel'
+    default: "Hotel View - About Our Hotel",
   },
   secondaryImageAlt: {
     type: String,
-    default: 'Hotel detail view'
+    default: "Hotel detail view",
   },
   subHeading: {
     type: String,
-    default: 'ABOUT US'
+    default: "ABOUT US",
   },
   mainHeading: {
     type: String,
-    default: 'Hobitel - Where Your Holiday Becomes Wonderful'
+    default: "Hobitel - Where Your Holiday Becomes Wonderful",
   },
   description: {
     type: String,
-    default: 'At Hobitel, we don\'t just provide accommodation; we deliver experiences. From luxurious spaces to attentive service, every moment of your stay is meticulously cared for, ensuring a memorable and inspiring holiday.'
+    default:
+      "At Hobitel, we don't just provide accommodation; we deliver experiences. From luxurious spaces to attentive service, every moment of your stay is meticulously cared for, ensuring a memorable and inspiring holiday.",
   },
   promotionalMessage: {
     type: String,
-    default: 'Guaranteed best price when booking directly through our website!'
+    default: "Guaranteed best price when booking directly through our website!",
   },
   promotionIcon: {
     type: [Object, String],
-    default: DefaultPromotionIcon
+    default: DefaultPromotionIcon,
   },
   features: {
     type: Array,
     default: () => [
       {
         icon: Service,
-        title: 'World-Class Service',
-        description: 'Our dedicated team is ready to serve you 24/7, providing a superior experience.'
+        title: "World-Class Service",
+        description:
+          "Our dedicated team is ready to serve you 24/7, providing a superior experience.",
       },
       {
         icon: CoffeeCup,
-        title: 'Exquisite Cuisine',
-        description: 'Discover a unique culinary journey at our restaurants and bars.'
-      }
-    ]
+        title: "Exquisite Cuisine",
+        description:
+          "Discover a unique culinary journey at our restaurants and bars.",
+      },
+    ],
   },
   quote: {
     type: Object,
     default: () => ({
-      text: '',
-      author: ''
-    })
+      text: "",
+      author: "",
+    }),
   },
   ctaButtonText: {
     type: String,
-    default: 'Learn More About Us'
+    default: "Learn More About Us",
   },
   ctaButtonLink: {
     type: String,
-    default: '/about'
+    default: "/about",
   },
   onCtaClick: {
     type: Function,
-    default: null
-  }
+    default: null,
+  },
 });
 
 const handleCtaClick = () => {
   if (props.onCtaClick) {
     props.onCtaClick();
   } else if (props.ctaButtonLink) {
-    if (props.ctaButtonLink.startsWith('http')) {
-      window.open(props.ctaButtonLink, '_blank');
+    if (props.ctaButtonLink.startsWith("http")) {
+      window.open(props.ctaButtonLink, "_blank");
     } else {
       router.push(props.ctaButtonLink);
     }
@@ -234,16 +251,16 @@ const handleCtaClick = () => {
 }
 
 .main-heading {
-  font-family: 'Playfair Display', serif;
-  color: #1A3760;
+  font-family: "Playfair Display", serif;
+  color: #1a3760;
   line-height: 1.2;
 }
 
 .lead {
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: #555;
-    font-family: 'Roboto', sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #555;
+  font-family: "Roboto", sans-serif;
 }
 
 .alert-info {
@@ -255,7 +272,7 @@ const handleCtaClick = () => {
 }
 
 .promotion-icon {
-    color: #1890ff;
+  color: #1890ff;
 }
 
 .feature-item {
@@ -280,7 +297,7 @@ const handleCtaClick = () => {
 }
 
 .feature-item h5 {
-  color: #1A3760;
+  color: #1a3760;
   font-size: 1.1rem;
 }
 
@@ -296,24 +313,24 @@ const handleCtaClick = () => {
   line-height: 1.6;
 }
 .quote-icon {
-    color: #d9534f;
+  color: #d9534f;
 }
 .blockquote-footer {
-    font-size: 0.85rem;
-    color: #6c757d;
+  font-size: 0.85rem;
+  color: #6c757d;
 }
 
 .cta-button {
-    font-weight: 600;
-    padding: 0.8rem 2.2rem;
-    font-size: 1.05rem;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease; /* Kept hover effect for button */
+  font-weight: 600;
+  padding: 0.8rem 2.2rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease; /* Kept hover effect for button */
 }
 
 .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(217, 83, 79, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(217, 83, 79, 0.4);
 }
 
 /* Responsive adjustments */
@@ -343,7 +360,7 @@ const handleCtaClick = () => {
     padding-bottom: 3rem;
   }
   .image-wrapper {
-      padding-bottom: 100%;
+    padding-bottom: 100%;
   }
   .main-about-image {
     max-height: 300px;
@@ -371,8 +388,8 @@ const handleCtaClick = () => {
     font-size: 1rem;
   }
   .quote-block {
-      padding: 1rem;
-      font-size: 0.95rem;
+    padding: 1rem;
+    font-size: 0.95rem;
   }
 }
 </style>
